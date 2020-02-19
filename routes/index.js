@@ -34,6 +34,11 @@ router.get("/login", function(req, res){
    res.render("login"); 
 });
 
+//show catering page
+router.get("/Catering", function(req, res){
+   res.render("catering"); 
+});
+
 //handling login logic
 router.post("/login", passport.authenticate("local", 
     {
