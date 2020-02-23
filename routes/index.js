@@ -13,10 +13,23 @@ router.get("/register", function(req, res){
    res.render("register"); 
 });
 
-
+// show decorations
 router.get("/decorations", function(req, res){
    res.render("decorations"); 
 });
+
+
+// show venues
+router.get("/venues", function(req, res) {
+	res.render("venues");
+});
+
+
+//show catering page
+router.get("/Catering", function(req, res){
+    res.render("catering"); 
+ });
+
 
 //handle sign up logic
 router.post("/register", function(req, res){
@@ -34,15 +47,12 @@ router.post("/register", function(req, res){
     });
 });
 
+
 //show login form
 router.get("/login", function(req, res){
    res.render("login"); 
 });
 
-//show catering page
-router.get("/Catering", function(req, res){
-   res.render("catering"); 
-});
 
 //handling login logic
 router.post("/login", passport.authenticate("local", 
@@ -51,6 +61,7 @@ router.post("/login", passport.authenticate("local",
         failureRedirect: "/login"
     }), function(req, res){
 });
+
 
 // logout route
 router.get("/logout", function(req, res){
