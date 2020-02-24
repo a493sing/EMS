@@ -9,4 +9,4 @@ var decorationsSchema = new mongoose.Schema({
    contactno: String
 });
 
-module.exports = mongoose.model("Decorations", decorationsSchema);
+module.exports = mongoose.model("decorations", decorationsSchema);
