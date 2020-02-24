@@ -15,7 +15,31 @@
  		</div>
  	</div>
  </div>
+<table class = "table table-hover table-dark">
+	 <thead>
+		 <tr>
+			 <th>Name</th>
+ 			 <th>Locations</th>
+			 <th>Capacity</th>
+			 <th>Price</th>
+			 <th>Contact</th>
+			 <th>Description</th>
+		 </tr>
+	 </thead>
+	 <tbody>
+		<% for (var i = 0; i < decorations.length; i++) { %>
+			<tr>
+			  <td><%= decorations[i].name %></td>
+			  <td><%= decorations[i].location %></td>
+			  <td><%= decorations[i].capacity %></td>
+			  <td><%= decorations[i].price %></td>
+			  <td><%= decorations[i].contactno %></td>
+			  <td><%= decorations[i].description %></td>
+			</tr>    
+		<% } %>
+	 </tbody>
+ </table>
  
- <script src="scripts/background.js"></script>
+<script src="scripts/background.js"></script>
 
 <% include partials/footer %>
