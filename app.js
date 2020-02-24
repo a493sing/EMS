@@ -9,6 +9,9 @@ var express     = require("express"),
     Campground  = require("./models/campground"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
+    Venues  = require("./models/venues"),
+    Catering = require("./models/catering"),
+    Decorations  = require("./models/decorations"),
     session = require("express-session"),
     seedDB      = require("./seeds"),
     methodOverride = require("method-override");
@@ -26,6 +29,63 @@ app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
 // seedDB(); //seed the database
+// get reference to database
+var db = mongoose.connection;
+ 
+db.on('error', console.error.bind(console, 'connection error:'));
+ 
+db.once('open', function() {
+    console.log("Connection Successful!");
+      
+    // a document instance
+    var venue1 = new Venues({ 
+        name: 'ABC Party Hall',
+        image: null,
+        description: null,
+        location: 'Near UW',
+        noofpeople: 150,
+        category: 'Suited for all types of events',
+        contactno: '2268889090',
+        cateringavailability: true,
+        decorationavailability: true
+     });
+
+    var catering1 = new Catering({
+        name: 'DEF Caterers',
+        image: null,
+        description: null,
+        location: 'Near BC',
+        price: '$2000',
+        beverages: false,
+        contactno: '123456789'
+    }); 
+
+    var decoration1 = new Decorations({
+        name: 'PQR Decorators',
+        image: null,
+        description: null,
+        location: 'Near Toronto',
+        price: '$5000',
+        contactno: '1222234445'
+    });
+
+    // save model to database
+    venue1.save(function (err, venue) {
+      if (err) return console.error(err);
+      console.log(venue.name + " saved to bookstore collection.");
+    });
+
+    catering1.save(function (err, catering) {
+        if (err) return console.error(err);
+        console.log(catering.name + " saved to bookstore collection.");
+      });
+
+    decoration1.save(function (err, decorations) {
+        if (err) return console.error(err);
+        console.log(decorations.name + " saved to bookstore collection.");
+      });
+    
+});
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({

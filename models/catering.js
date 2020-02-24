@@ -10,4 +10,4 @@ var cateringSchema = new mongoose.Schema({
    contactno: String
 });
 
-module.exports = mongoose.model("Catering", cateringSchema);
+module.exports = mongoose.model("catering", cateringSchema);
