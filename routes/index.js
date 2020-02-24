@@ -16,10 +16,6 @@ router.get("/register", function(req, res){
    res.render("register"); 
 });
 
-// show decorations
-/*router.get("/decorations", function(req, res){
-   res.render("decorations"); 
-});*/
 router.get('/decorations', function(req, res) {
     Decorations.find(function(err, decorations) {
         if (err) {
@@ -41,17 +37,6 @@ router.get('/venues', function(req, res) {
         }
     });
 });
-
-// show venues
-/*router.get("/venues", function(req, res) {
-	res.render("venues");
-});*/
-
-
-//show catering page
-/*router.get("/Catering", function(req, res){
-    res.render("catering"); 
- });*/
 
  router.get('/catering', function(req, res) {
     Catering.find(function(err, catering) {
