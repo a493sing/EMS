@@ -60,7 +60,7 @@ router.post("/register", function(req, res){
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Successfully Signed Up! You can start your planning " + req.body.username);
+           req.flash("success", "Successfully Signed Up! Start your planning now " + req.body.username);
            res.redirect("/"); 
         });
     });
