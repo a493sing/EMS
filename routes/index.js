@@ -2,6 +2,9 @@ var express = require("express");
 var router  = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
+var Venues = require("../models/venues");
+var Catering = require("../models/catering");
+var Decorations  = require("../models/decorations");
 
 //root route
 router.get("/", function(req, res){
@@ -13,22 +16,38 @@ router.get("/register", function(req, res){
    res.render("register"); 
 });
 
-// show decorations
-router.get("/decorations", function(req, res){
-   res.render("decorations"); 
+router.get('/decorations', function(req, res) {
+    Decorations.find(function(err, decorations) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('decorations', { decorations: decorations });
+            //console.log(venues);
+        }
+    });
 });
 
-
-// show venues
-router.get("/venues", function(req, res) {
-	res.render("venues");
+router.get('/venues', function(req, res) {
+    Venues.find(function(err, venues) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('venues', { venues: venues });
+            //console.log(venues);
+        }
+    });
 });
 
-
-//show catering page
-router.get("/Catering", function(req, res){
-    res.render("catering"); 
- });
+ router.get('/catering', function(req, res) {
+    Catering.find(function(err, catering) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('catering', { catering: catering });
+            //console.log(venues);
+        }
+    });
+});
 
 
 //handle sign up logic
@@ -41,8 +60,8 @@ router.post("/register", function(req, res){
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-           res.redirect("/campgrounds"); 
+           req.flash("success", "Successfully Signed Up! Start your planning now " + req.body.username);
+           res.redirect("/"); 
         });
     });
 });
@@ -57,7 +76,7 @@ router.get("/login", function(req, res){
 //handling login logic
 router.post("/login", passport.authenticate("local", 
     {
-        successRedirect: "/campgrounds",
+        successRedirect: "/",
         failureRedirect: "/login"
     }), function(req, res){
 });
@@ -66,8 +85,8 @@ router.post("/login", passport.authenticate("local",
 // logout route
 router.get("/logout", function(req, res){
    req.logout();
-   req.flash("success", "LOGGED YOU OUT!");
-   res.redirect("/campgrounds");
+   req.flash("success", "Successfully LOGGED OUT!");
+   res.redirect("/");
 });
 
 
