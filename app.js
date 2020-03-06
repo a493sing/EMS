@@ -9,8 +9,12 @@ var express     = require("express"),
     Campground  = require("./models/campground"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
+    Venues  = require("./models/venues"),
+    Catering = require("./models/catering"),
+    Decorations  = require("./models/decorations"),
     session = require("express-session"),
     seedDB      = require("./seeds"),
+    seedEmsData = require("./seedEmsData"),
     methodOverride = require("method-override");
     
 //requiring routes
@@ -25,7 +29,8 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
-// seedDB(); //seed the database
+//seedDB(); //seed the database
+seedEmsData();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({

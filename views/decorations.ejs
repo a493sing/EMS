@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include partials/decorations %>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="stylesheets/landing.css">
 <div class="container">
@@ -15,7 +15,8 @@
  		</div>
  	</div>
  </div>
-<table class = "table table-hover">
+
+<table class = "table table-hover table-dark">
 	 <thead>
 		 <tr>
 			 <th>Name</th>
@@ -27,14 +28,14 @@
 		 </tr>
 	 </thead>
 	 <tbody>
-		<% for (var i = 0; i < Decorations.length; i++) { %>
+		<% for (var i = 0; i < decorations.length; i++) { %>
 			<tr>
-			  <td><%= Decorations[i].name %></td>
-			  <td><%= Decorations[i].location %></td>
-			  <td><%= Decorations[i].capacity %></td>
-			  <td><%= Decorations[i].price %></td>
-			  <td><%= Decorations[i].contactno %></td>
-			  <td><%= Decorations[i].description %></td>
+			  <td><%= decorations[i].name %></td>
+			  <td><%= decorations[i].location %></td>
+			  <td><%= decorations[i].capacity %></td>
+			  <td><%= decorations[i].price %></td>
+			  <td><%= decorations[i].contactno %></td>
+			  <td><%= decorations[i].description %></td>
 			</tr>    
 		<% } %>
 	 </tbody>
