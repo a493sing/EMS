@@ -13,8 +13,8 @@ var venuesData = [
         capacity: 120,
         category: 'Social and Corporate events',
         contactno: '(111) 222 3333',
-        cateringavailability: true,
-        decorationavailability: false
+        cateringAvailable: 'Yes',
+        decorationAvailable: 'No'
     },
     {
         name: 'Archeo',
@@ -25,8 +25,8 @@ var venuesData = [
         capacity: 140,
         category: 'Ceremony seating, Holiday parties, Plated dinners, and Cocktail events',
         contactno: '(416) 815-9898',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: 'Yes',
+        decorationAvailable: 'No'
 
     },
     {
@@ -74,7 +74,7 @@ var cateringData = [
         description: "It gives us great pleasure to welcome you to the world of à la Carte. We are a premier events caterer providing a wide variety of services ready to meet your needs and exceed your expectations. Superior tastes, polished service, innovative design and an excellent atmosphere. With this goal in mind one of Toronto's first full-service, fine culinary caterers was established in 1981. While Her Majesty Queen Elizabeth II, every Canadian Prime Minister since Pierre Trudeau, Oprah, Elizabeth Taylor, and Karl Lagerfeld  have all been served by à la Carte, other notables also served include great grandmothers, special uncles, happy couples, and proud parents to name a few.",
         location: '2 Thorncliffe Park Dr, East York, ON M4H 1G9',
         price: '25',
-        beverages: false,
+        beverages: 'No',
         contactno: '(416) 971-4068'
     },
     {
@@ -83,7 +83,7 @@ var cateringData = [
         description: "Since joining forces over a decade ago, The Food Dudes have grown their once small, home-based operation into Toronto’s most revered, innovative and adaptive catering and food service company. Executive Chef Adrian Niman founded The Food Dudes in 2007 upon completing his intense training at the Michelin-starred Reads Hotel in Mallorca, Spain. Adrian then partnered with Creative Director Brent McClenahan, who specializes in bridging the gap between design strategy and the culinary arts. They added Chief Executive Officer Lindsay Klein soon after, built a world-class team of passionate professionals, and quickly distinguished themselves as industry leaders. The Food Dudes consistently raise the bar by anticipating and fulfilling the dynamic needs of the modern metropolitan client - a desire for fresh and local ingredients, sophisticated original fare, flexible budgeting plans - all while providing a memorable culinary experience. From catered affairs of all styles and sizes to food trucks, restaurants, fundraisers and signature food-driven event experiences, The Food Dudes are Toronto’s most trusted hospitality specialists and premier providers of all things edible.",
         location: '24 Carlaw Ave #2, Toronto, ON M4M 2R7',
         price: '40',
-        beverages: true,
+        beverages: 'Yes',
         contactno: '(647) 340 3833'
     },
     {
