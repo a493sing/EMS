@@ -1,5 +1,5 @@
 var Comment = require("../models/comment");
-var Campground = require("../models/campground");
+var Ems = require("../models/EMS");
 module.exports = {
     isLoggedIn: function(req, res, next){
         if(req.isAuthenticated()){
@@ -8,15 +8,16 @@ module.exports = {
         req.flash("error", "You must be signed in to do that!");
         res.redirect("/login");
     },
-    checkUserCampground: function(req, res, next){
+    checkUser: function(req, res, next){
         if(req.isAuthenticated()){
-            Campground.findById(req.params.id, function(err, campground){
-               if(campground.author.id.equals(req.user._id)){
+            Ems.findById(req.params.id, function(err, ems){
+               if(ems.author.id.equals(req.user._id)){
                    next();
                } else {
                    req.flash("error", "You don't have permission to do that!");
                    console.log("BADD!!!");
-                   res.redirect("/campgrounds/" + req.params.id);
+                   //res.redirect("/campgrounds/" + req.params.id);
+                   res.redirect("/" + req.params.id);
                }
             });
         } else {
@@ -32,7 +33,8 @@ module.exports = {
                    next();
                } else {
                    req.flash("error", "You don't have permission to do that!");
-                   res.redirect("/campgrounds/" + req.params.id);
+                   //res.redirect("/campgrounds/" + req.params.id);
+                   res.redirect("/" + req.params.id);
                }
             });
         } else {
