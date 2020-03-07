@@ -13,8 +13,8 @@ var venuesData = [
         capacity: 500,
         category: 'Suited for all types of events',
         contactno: '2268889090',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: true,
+        decorationAvailable: true
     },
     {
         name: 'PQR Party Hall',
@@ -25,8 +25,8 @@ var venuesData = [
         capacity: 50,
         category: 'Suited for birthday parties only',
         contactno: '2268889090',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: true,
+        decorationAvailable: true
 
     },
     {
@@ -38,8 +38,8 @@ var venuesData = [
         capacity: 150,
         category: 'Suited for all types of events',
         contactno: '2268889090',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: true,
+        decorationAvailable: true
     },
     {
         name: 'LMN Mini Hall',
@@ -50,8 +50,8 @@ var venuesData = [
         capacity: 70,
         category: 'Suited for all types of events',
         contactno: '2268889090',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: true,
+        decorationAvailable: true
     },
     {
         name: 'AAA Hall',
@@ -62,8 +62,8 @@ var venuesData = [
         capacity: 150,
         category: 'Suited for all types of events',
         contactno: '2268889090',
-        cateringavailability: true,
-        decorationavailability: true
+        cateringAvailable: true,
+        decorationAvailable: true
     }
 ]
 
