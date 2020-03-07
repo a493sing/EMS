@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var venuesSchema = new mongoose.Schema({
-   name: String,
+   name: {type: String, required: true},
    image: String,
    price: String,
    description: String,
@@ -9,8 +9,8 @@ var venuesSchema = new mongoose.Schema({
    capacity: Number,
    category: String,
    contactno: String,
-   cateringavailability: Boolean,
-   decorationavailability: Boolean
+   cateringAvailable: Boolean,
+   decorationAvailable: Boolean
 });
 
 module.exports = mongoose.model("venues", venuesSchema);

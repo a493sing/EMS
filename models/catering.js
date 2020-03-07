@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var cateringSchema = new mongoose.Schema({
-   name: String,
+   name: {type: String, required: true},
    image: String,
    description: String,
    location: String,
