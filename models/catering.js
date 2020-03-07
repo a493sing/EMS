@@ -6,7 +6,7 @@ var cateringSchema = new mongoose.Schema({
    description: String,
    location: String,
    price: String,
-   beverages: Boolean,
+   beverages: String,
    contactno: String
 });
 
