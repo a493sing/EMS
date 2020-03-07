@@ -7,7 +7,6 @@ var express     = require("express"),
     LocalStrategy = require("passport-local"),
     flash        = require("connect-flash"),
     EMS          = require("./models/EMS"),
-    Comment     = require("./models/comment"),
     User        = require("./models/user"),
     Venues  = require("./models/venues"),
     Catering = require("./models/catering"),
@@ -18,9 +17,7 @@ var express     = require("express"),
     methodOverride = require("method-override");
     
 //requiring routes
-var //commentRoutes    = require("./routes/comments"),
-    // campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes      = require("./routes/index")
+var indexRoutes      = require("./routes/index")
     
 mongoose.connect("mongodb://localhost/yelp_camp_v9");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -55,8 +52,6 @@ app.use(function(req, res, next){
 
 
 app.use("/", indexRoutes);
-// app.use("/EMS", campgroundRoutes);
-// app.use("/campgrounds/:id/comments", commentRoutes);
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){
