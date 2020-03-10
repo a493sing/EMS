@@ -9,8 +9,8 @@ var venuesSchema = new mongoose.Schema({
    capacity: Number,
    category: String,
    contactno: String,
-   cateringAvailable: Boolean,
-   decorationAvailable: Boolean
+   cateringAvailable: String,
+   decorationAvailable: String
 });
 
 module.exports = mongoose.model("venues", venuesSchema);
