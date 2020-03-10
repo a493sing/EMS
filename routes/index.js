@@ -12,17 +12,21 @@ router.get("/", function(req, res){
 });
 
 // show register form
-router.get("/register", function(req, res){
-   res.render("register"); 
+router.get("/register", function(req, res, next){
+   try {
+   res.header('token', JSON.stringify({ token: 'token' })); 
+   res.render("register");
+   } catch(err) {
+       next(err);
+   }
 });
 
-router.get('/decorations', function(req, res) {
+router.get('/decorations', function(req, res, next) {
     Decorations.find(function(err, decorations) {
-        if (err) {
-            console.log(err);
-        } else {
+        try {
             res.render('decorations', { decorations: decorations });
-            //console.log(venues);
+        }catch(err){
+            next(err)
         }
     });
 });
