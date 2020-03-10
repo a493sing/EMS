@@ -5,11 +5,11 @@ The project aims at developing an online Event Management System where users hav
 We plan to use the following technologies like Python, Flask, Angular or Node Js or React (Front End), MySQL or MongoDB for database.
 
 # TEAM MEMBERS
-1) Amanpreet Singh(a493sing)
-2) Meenakshikumar Somasundaram (m2somasu)
-3) Muhammad Areeb Ansari (ma8ansar)
-4) Rishabh Karwayun (rkarwayu)
-5) Roy David Alexis John Bosco (rdalexis)
+1) Amanpreet Singh
+2) Meenakshikumar Somasundaram
+3) Muhammad Areeb Ansari
+4) Rishabh Karwayun
+5) Roy David Alexis John Bosco
 
 
 
