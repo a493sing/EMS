@@ -15,22 +15,22 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Description</th>
 				<th>Location</th>
 				<th>Price</th>
 				<th>Beverages</th>
 				<th>Contact</th>
+				<th>Description</th>
 			</tr>
 		</thead>
 		<tbody>
 		<% for (var i = 0; i < catering.length; i++) { %>
 			<tr>
 				<td><%= catering[i].name %></td>
-				<td><%= catering[i].description %></td>
 				<td><%= catering[i].location %></td>
 				<td><%= catering[i].price %></td>
 				<td><%= catering[i].beverages %></td>
 				<td><%= catering[i].contactno %></td>
+				<td><%= catering[i].description %></td>
 			</tr>    
 		<% } %>
 		</tbody>
