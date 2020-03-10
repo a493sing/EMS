@@ -13,7 +13,8 @@ var express     = require("express"),
     Decorations  = require("./models/decorations"),
     session = require("express-session"),
     //seedDB      = require("./seeds"),
-    seedEmsData = require("./seedEmsData"),
+    //seedEmsData = require("./seedEmsData"),
+    seedEmsDataCsv = require("./seedEmsDataCsv"),    
     methodOverride = require("method-override");
     
 //requiring routes
@@ -26,8 +27,10 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
-//seedDB(); //seed the database
-seedEmsData();
+//seed the database
+//seedDB(); 
+//seedEmsData();
+seedEmsDataCsv();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
