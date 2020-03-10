@@ -19,9 +19,9 @@ var csvHeaders = {
 
 function seedEmsDataCsv() {
     // Import CSV to MongoDB
-    importCSVFile(__dirname + '/venues.csv', Venues, 'venues');
-    importCSVFile(__dirname + '/catering.csv', Catering, 'catering');
-    importCSVFile(__dirname + '/decorations.csv', Decorations, 'decorations');
+    importCSVFile(__dirname + '/dbdata/venues.csv', Venues, 'venues');
+    importCSVFile(__dirname + '/dbdata/catering.csv', Catering, 'catering');
+    importCSVFile(__dirname + '/dbdata/decorations.csv', Decorations, 'decorations');
 }
 
 function importCSVFile(filePath, modelSchema, modelName) {
