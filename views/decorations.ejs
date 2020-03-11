@@ -2,45 +2,37 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="stylesheets/landing.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-<div class="container">
- 	<div class="row">
- 		<div class="col-lg-12">
- 			<div class="content">
-				<h1>Decorations</h1>
-				<h2>Start planning your event today!!</h2>
- 				<hr>
- 				
- 			</div>
- 		</div>
- 	</div>
- </div>
 
-<table class = "table table-hover table-dark">
-	 <thead>
-		 <tr>
-			 <th>Name</th>
- 			 <th>Locations</th>
-			 <th>Capacity</th>
-			 <th>Price</th>
-			 <th>Contact</th>
-			 <th>Description</th>
-		 </tr>
-	 </thead>
-	 <tbody>
-		<% for (var i = 0; i < decorations.length; i++) { %>
+
+<header class = "w3-container w3-blue">
+	<h1 align = "center">DECORATIONS</h1>
+</header>
+
+<body>
+	<table class = "table table-hover table-bordered">
+		<thead>
 			<tr>
-			  <td><%= decorations[i].name %></td>
-			  <td><%= decorations[i].location %></td>
-			  <td><%= decorations[i].capacity %></td>
-			  <td><%= decorations[i].price %></td>
-			  <td><%= decorations[i].contactno %></td>
-			  <td><%= decorations[i].description %></td>
-			</tr>    
-		<% } %>
-	 </tbody>
- </table>
- 
-<!-- <script src="scripts/background.js"></script> -->
+				<th>Name</th>
+				<th>Location</th>
+				<th>Price</th>
+				<th>Contact</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for (var i = 0; i < decorations.length; i++) { %>
+				<tr>
+				<td><%= decorations[i].name %></td>
+				<td><%= decorations[i].location %></td>
+				<td><%= decorations[i].price %></td>
+				<td><%= decorations[i].contactno %></td>
+				<td><%= decorations[i].description %></td>
+				</tr>    
+			<% } %>
+		</tbody>
+	</table>
+</body>
 
 <% include partials/footer %>
