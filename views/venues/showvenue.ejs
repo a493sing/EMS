@@ -1,0 +1,20 @@
+<% include partials/venues %>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="stylesheets/landing.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+ 
+<header class = "w3-container w3-teal">
+	 <h1 align = "center">VENUES</h1>
+</header>
+
+
+<div class="caption-full">
+	<h4 class="pull-right">$9.00/night</h4>
+	<h4><a><%=venue.name%></a></h4>
+	<p><%= venue.description %></p>
+</div>
+
+<% include partials/footer %>

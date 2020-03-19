@@ -10,7 +10,10 @@ var venuesSchema = new mongoose.Schema({
    category: String,
    contactno: String,
    cateringAvailable: String,
-   decorationAvailable: String
+   decorationAvailable: String,
+   id: {
+      type: mongoose.Schema.Types.ObjectId
+   }
 });
 
 module.exports = mongoose.model("venues", venuesSchema);
