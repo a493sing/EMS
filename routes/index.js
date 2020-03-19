@@ -32,6 +32,7 @@ router.get('/venues', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            console.log("Venues")
             res.render('venues', { venues: venues });
             //console.log(venues);
         }
@@ -87,6 +88,24 @@ router.get("/logout", function(req, res){
    req.logout();
    req.flash("success", "Successfully LOGGED OUT!");
    res.redirect("/");
+});
+
+
+
+
+//testing
+router.get("/venues/:id", function(req, res){
+    //find the campground with provided ID
+    Venues.findById(req.params.id, function(err, ven){
+        if(err){
+            console.log(err);
+            console.log("Testing");
+        } else {
+            console.log("Listing all venues....")
+            //render show template with that campground
+            res.render("venues/showvenue", {venue: ven});
+        }
+    });
 });
 
 
