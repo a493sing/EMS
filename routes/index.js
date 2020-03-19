@@ -2,9 +2,6 @@ var express = require("express");
 var router  = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var Venues = require("../models/venues");
-var Catering = require("../models/catering");
-var Decorations  = require("../models/decorations");
 
 //root route
 router.get("/", function(req, res){
@@ -20,40 +17,6 @@ router.get("/register", function(req, res, next){
        next(err);
    }
 });
-
-router.get('/decorations', function(req, res, next) {
-    Decorations.find(function(err, decorations) {
-        try {
-            res.render('decorations', { decorations: decorations });
-        }catch(err){
-            next(err)
-        }
-    });
-});
-
-router.get('/venues', function(req, res) {
-    Venues.find(function(err, venues) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Venues")
-            res.render('venues', { venues: venues });
-            //console.log(venues);
-        }
-    });
-});
-
- router.get('/catering', function(req, res) {
-    Catering.find(function(err, catering) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('catering', { catering: catering });
-            //console.log(venues);
-        }
-    });
-});
-
 
 //handle sign up logic
 router.post("/register", function(req, res){

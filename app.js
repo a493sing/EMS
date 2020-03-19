@@ -18,7 +18,10 @@ var express     = require("express"),
     methodOverride = require("method-override");
     
 //requiring routes
-var indexRoutes      = require("./routes/index")
+var indexRoutes      = require("./routes/index"),
+    venueRoutes      = require("./routes/venues"),
+    cateringRoutes      = require("./routes/catering"),
+    decorationRoutes      = require("./routes/decorations")
     
 mongoose.connect("mongodb://localhost/yelp_camp_v9");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,8 +56,10 @@ app.use(function(req, res, next){
    next();
 });
 
-
 app.use("/", indexRoutes);
+app.use("/venues", venueRoutes);
+app.use("/catering", cateringRoutes);
+app.use("/decorations", decorationRoutes);
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){
