@@ -11,10 +11,24 @@
 </header>
 
 
-<div class="caption-full">
+<!--<div class="caption-full">
 	<h4 class="pull-right">$9.00/night</h4>
 	<h4><a><%=venue.name%></a></h4>
 	<p><%= venue.description %></p>
+</div> -->
+
+
+<div class="row">
+	<div class="col-md-2">
+		<button type="button" class="btn btn-primary btn-block"><%= venue.name %></button>
+		
+	</div>
+	<div class="col-md-9" align = "center">
+		<div class="thumbnail">
+            <p><%= venue.description %></p>
+			<img class="img-responsive" src="<%= venue.image %>">
+		</div>
+	</div>
 </div>
 
 <% include partials/footer %>
