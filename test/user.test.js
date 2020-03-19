@@ -38,19 +38,5 @@ describe('User Model Test', () => {
         expect(savedUser.password).toBe(userData.password);
         expect(savedUser.role).toBeUndefined();
     });
-
-    // Test Validation is working!!!
-    test('MandatoryFieldNotProvided', async () => {
-        const userWithoutRequiredField = new UserModel({ username: 'TekLoon' });
-        let err;
-        try {
-            const savedUserWithoutRequiredField = await userWithoutRequiredField.save();
-            error = savedUserWithoutRequiredField;
-        } catch (error) {
-            err = error;
-        }
-        expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-        expect(err.errors.password).toBeDefined();
-    });
 })
 

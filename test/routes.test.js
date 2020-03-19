@@ -1,4 +1,4 @@
-const index = require("./routes/index");
+const index = require("../routes/index");
 
 const request = require("supertest");
 const express = require("express");
@@ -7,14 +7,14 @@ const app = express();
 app.use("/", index);
 
 describe("Testing the routes", () => {
-    /*test("Landing", async (done) => {
+    test("Landing", async (done) => {
       const response = await request(app).get("/");
-      console.log(response);
+      //console.log(response);
       expect(response.statusCode).toBe(500);
       done();
     });
 
-    test("Register", async (done) => {
+    /*test("Register", async (done) => {
         const response = await request(app).get("/register");
         //expect(response.statusCode).toBe(200);
         done();

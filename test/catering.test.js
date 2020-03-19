@@ -20,7 +20,7 @@ describe('Catering Model Test', () => {
 
     test('CreateAndSaveCateringData', async () => {
         const cateringData = { name: 'Jessy Caterers', image: null, description: null,
-        location: 'Vancouver', price: '$2000', beverages: false, 
+        location: 'Vancouver', price: '$2000', beverages: "false", 
         contactno: '123456789'};
         const validCateringData = new CateringModel(cateringData);
         const savedCateringData = await validCateringData.save();
@@ -39,7 +39,7 @@ describe('Catering Model Test', () => {
     test('FieldNotDefinedInSchema', async () => {
         const cateringData = { name: 'Tasty Caterers', image: null,
         description: null, location: 'Brampton', price: '$2000',
-        beverages: false,  contactno: '123456789', rating: 'very good'};
+        beverages: "false",  contactno: '123456789', rating: 'very good'};
         const validCateringData = new CateringModel(cateringData);
         const savedCateringData = await validCateringData.save();
         // Object Id should be defined when successfully saved to MongoDB.
@@ -56,7 +56,7 @@ describe('Catering Model Test', () => {
     // Test Validation is working!!!
     test('MandatoryFieldNotProvided', async () => {
         const cateringWithoutRequiredField = new CateringModel({ image: null, description: null,             location: 'Halifix',
-            price: '$2000', beverages: false, contactno: '123456789' });
+            price: '$2000', beverages: "false", contactno: '123456789' });
         let err;
         try {
             const savedCateringDataWithoutRequiredField = await cateringWithoutRequiredField.save();
