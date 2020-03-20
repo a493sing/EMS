@@ -6,6 +6,7 @@ var Catering = require("../models/catering");
 var Venues = require("../models/venues");
 var Decorations = require("../models/decorations");
 
+
 //root route
 router.get("/", function(req, res){
     res.render("landing");
@@ -61,7 +62,6 @@ router.get("/logout", function(req, res){
 });
 
 
-//venues 
 router.get("/venues/:id", function(req, res){
     //find the venues with provided ID
     Venues.findById(req.params.id, function(err, ven){
@@ -70,6 +70,7 @@ router.get("/venues/:id", function(req, res){
             console.log("Testing");
         } else {
             console.log("Listing all venues....")
+
             //render show template with that venues
             res.render("venues/showvenue", {venue: ven});
         }
