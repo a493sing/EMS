@@ -6,7 +6,7 @@ describe('Venues Model Test', () => {
     // It's just so easy to connect to the MongoDB Memory Server 
     // By using mongoose.connect
     beforeAll(async () => {
-        await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
+        await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: "true", useCreateIndex: "true" }, (err) => {
             if (err) {
                 console.error(err);
                 process.exit(1);
@@ -22,7 +22,7 @@ describe('Venues Model Test', () => {
         const venueData =  { name: 'ABC Party Hall', image: null,
                 description: null, location: 'Waterloo', price: '5000 CAD',
                 capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: true, decorationAvailable: true
+                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true"
             };
         const validVenue = new VenueModel(venueData);
         const savedVenue = await validVenue.save();
@@ -46,7 +46,7 @@ describe('Venues Model Test', () => {
         const venueData =  { name: 'Grand Party Hall', image: null,
                 description: null, location: 'Markham', price: '5000 CAD',
                 capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: true, decorationAvailable: true,
+                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true",
                 rating: 'very good'
             };
         const validVenue = new VenueModel(venueData);
@@ -70,7 +70,7 @@ describe('Venues Model Test', () => {
         const venueDataWithoutReqField = new VenueModel({ image: null,
                 description: null, location: 'Markham', price: '5000 CAD',
                 capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: true, decorationAvailable: true
+                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true"
           });
         let err;
         try {
