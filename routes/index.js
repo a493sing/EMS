@@ -36,6 +36,7 @@ router.get('/venues', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            console.log("Venues")
             res.render('venues', { venues: venues });
             //console.log(venues);
         }
@@ -93,5 +94,52 @@ router.get("/logout", function(req, res){
    res.redirect("/");
 });
 
+
+
+
+//venues
+router.get("/venues/:id", function(req, res){
+    //find the venues with provided ID
+    Venues.findById(req.params.id, function(err, ven){
+        if(err){
+            console.log(err);
+            console.log("Testing");
+        } else {
+            console.log("Listing all venues....")
+            //render show template with that venues
+            res.render("venues/showvenue", {venue: ven});
+        }
+    });
+});
+
+//catering
+router.get("/catering/:id", function(req, res){
+    //find the catering with provided ID
+    Catering.findById(req.params.id, function(err, catr){
+        if(err){
+            console.log(err);
+            console.log("Testing");
+        } else {
+            console.log("Listing all venues....")
+            //render show template with that catering
+            res.render("catering/showcatering", {catering: catr});
+        }
+    });
+});
+
+//decorations
+router.get("/decorations/:id", function(req, res){
+    //find the decorations with provided ID
+    Decorations.findById(req.params.id, function(err, deco){
+        if(err){
+            console.log(err);
+            console.log("Testing");
+        } else {
+            console.log("Listing all venues....")
+            //render show template with that decorations
+            res.render("decoration/showdecoration", {decorations: deco});
+        }
+    });
+});
 
 module.exports = router;
