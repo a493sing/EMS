@@ -12,9 +12,12 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
+    "fast-csv": "^4.1.1",
+
     "fast-csv": "^4.1.1",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.12",

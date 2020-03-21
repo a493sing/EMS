@@ -10,21 +10,23 @@
 	 <h1 align = "center">CATERING</h1>
 </header>
 
-<div class = "container"></div>
-	<div class="row text-center" style="display:flex; flex-wrap: wrap;">
-		<% catering.forEach(function(catering){ %>
-			<div class="col-md-3 col-sm-6">
-				<div class="thumbnail">
-				<img src="<%= catering.image %>">
-				<div class="caption">
-					<h4><%= catering.name %></h4>
-				</div>
-				<p>
-					<a href="/catering/<%=catering._id %>" class="btn btn-primary">More Info</a>
-				</p>
-				</div>
-			</div>
-		<% }); %>
+
+<!-- <div class="caption-full">
+	<h4 class="pull-right">$9.00/night</h4>
+	<h4><a><%=catering.name%></a></h4>
+	<p><%= catering.description %></p>
+</div> -->
+
+<div class="row">
+	<div class="col-md-2">
+		<button type="button" class="btn btn-primary btn-block"><%= catering.name %></button>
+		
+	</div>
+	<div class="col-md-9" align = "center">
+		<div class="thumbnail">
+            <p><%= catering.description %></p>
+			<img class="img-responsive" src="<%= catering.image %>">
+		</div>
 	</div>
 </div>
 
