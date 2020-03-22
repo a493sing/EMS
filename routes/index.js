@@ -111,7 +111,11 @@ router.get("/decorations/:id", function(req, res){
 
 router.get("/newVenue", function(req, res){
     res.render("venues/new"); 
- });
+});
+
+router.get("/newDecoration", function(req, res){
+    res.render("decoration/new"); 
+});
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
@@ -159,6 +163,45 @@ router.post("/venues", isLoggedIn, function(req, res){
 });
 
 
+/*name: {type: String, required: true},
+   image: String,
+   description: String,
+   location: String,
+   price: String,
+   contactno: String,*/
+
+//CREATE - add new Decorator to DB
+router.post("/decorations", isLoggedIn, function(req, res){
+    var name = req.body.name;
+    var image = req.body.image;
+    var desc = req.body.description;
+    var price = req.body.price;
+    var loc = req.body.location;
+    var con = req.body.contactno;
+    var flag = false;
+    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || con == "") {
+        console.log("Decorator info not complete.");
+        req.flash("error", "There cannot be an empty field!!");
+        res.redirect("/newDecoration");
+    } else {
+        flag = true;
+        var newDeco = {name: name, image: image, description: desc, price: price, location: loc, 
+            contactno: con}
+        // Create a new Decorator and save to DB
+        if(flag) {
+            Decorations.create(newDeco, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                } else {
+                    //redirect back to venues page
+                    console.log(newlyCreated);
+                    res.redirect("/decorations");
+                }
+            });
+        }
+    }
+
+});
 
 
 
