@@ -7,7 +7,7 @@
 
  
 <header class = "w3-container w3-teal">
-	 <h1 align = "center">VENUES</h1>
+	 <h1 align = "center"><%= venue.name %></h1>
 </header>
 
 
@@ -19,9 +19,17 @@
 
 
 <div class="row">
-	<div class="col-md-2">
-		<button type="button" class="btn btn-primary btn-block"><%= venue.name %></button>
-		
+	<div class="col-md-3">
+		<div class="list-group">
+			<li align="center" class="list-group-item active">DETAILS</li>
+			<li class="list-group-item">Category : <%= venue.category %></li>
+			<li class="list-group-item">Location : <%= venue.location %></li>
+			<li class="list-group-item">Capacity : <%= venue.capacity %></li>
+			<li class="list-group-item">Price : <%= venue.price %></li>
+			<li class="list-group-item">Catering : <%= venue.cateringAvailable %></li>
+			<li class="list-group-item">Decorations : <%= venue.decorationAvailable %></li>
+			<li class="list-group-item">Contact : <%= venue.contactno %></li>
+		</div>
 	</div>
 	<div class="col-md-9" align = "center">
 		<div class="thumbnail">

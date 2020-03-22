@@ -109,4 +109,58 @@ router.get("/decorations/:id", function(req, res){
     });
 });
 
+router.get("/newVenue", function(req, res){
+    res.render("venues/new"); 
+ });
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    req.flash("error", "You must be signed in to do that!");
+    res.redirect("/login");
+}
+
+//CREATE - add new venue to DB
+router.post("/venues", isLoggedIn, function(req, res){
+    var name = req.body.name;
+    var image = req.body.image;
+    var desc = req.body.description;
+    var price = req.body.price;
+    var loc = req.body.location;
+    var cap = req.body.capacity;
+    var cat = req.body.category;
+    var con = req.body.contactno;
+    var cater = req.body.cateringAvailable;
+    var dec = req.body.decorationAvailable;
+    var flag = false;
+    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "") {
+        console.log("Venue info not complete.");
+        req.flash("error", "There cannot be an empty field!!");
+        res.redirect("/newVenue");
+    } else {
+        flag = true;
+        var newVenue = {name: name, image: image, description: desc, price: price, location: loc, capacity: cap, 
+            category: cat, contactno: con, cateringAvailable: cater, decorationAvailable: dec}
+        // Create a new venue and save to DB
+        if(flag) {
+            Venues.create(newVenue, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                } else {
+                    //redirect back to venues page
+                    console.log(newlyCreated);
+                    res.redirect("/venues");
+                }
+            });
+        }
+    }
+
+});
+
+
+
+
+
+
 module.exports = router;
