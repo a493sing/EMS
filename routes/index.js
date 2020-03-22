@@ -142,7 +142,7 @@ router.post("/venues", isLoggedIn, function(req, res){
     var cater = req.body.cateringAvailable;
     var dec = req.body.decorationAvailable;
     var flag = false;
-    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "") {
+    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "" || con == "") {
         console.log("Venue info not complete.");
         req.flash("error", "There cannot be an empty field!!");
         res.redirect("/newVenue");
