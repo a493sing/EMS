@@ -6,21 +6,24 @@ var express     = require("express"),
     cookieParser = require("cookie-parser"),
     LocalStrategy = require("passport-local"),
     flash        = require("connect-flash"),
-    Campground  = require("./models/campground"),
-    Comment     = require("./models/comment"),
+    EMS          = require("./models/ems"),
     User        = require("./models/user"),
     Venues  = require("./models/venues"),
     Catering = require("./models/catering"),
     Decorations  = require("./models/decorations"),
     session = require("express-session"),
-    seedDB      = require("./seeds"),
-    seedEmsData = require("./seedEmsData"),
+
+    //seedDB      = require("./seeds"),
+    //seedEmsData = require("./seedEmsData"),
+    seedEmsDataCsv = require("./seedEmsDataCsv"),    
+
     methodOverride = require("method-override");
     
 //requiring routes
-var commentRoutes    = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes      = require("./routes/index")
+var indexRoutes      = require("./routes/index"),
+    venueRoutes      = require("./routes/venues"),
+    cateringRoutes      = require("./routes/catering"),
+    decorationRoutes      = require("./routes/decorations")
     
 mongoose.connect("mongodb://localhost/yelp_camp_v9");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,8 +32,11 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
-//seedDB(); //seed the database
-seedEmsData();
+
+//seed the database
+//seedDB(); 
+//seedEmsData();
+seedEmsDataCsv();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -53,10 +59,10 @@ app.use(function(req, res, next){
    next();
 });
 
-
 app.use("/", indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/venues", venueRoutes);
+app.use("/catering", cateringRoutes);
+app.use("/decorations", decorationRoutes);
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){
