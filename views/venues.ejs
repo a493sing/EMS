@@ -2,53 +2,36 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="stylesheets/landing.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-<div class="container">
- 	<div class="row">
- 		<div class="col-lg-12">
- 			<div class="content">
- 				<h1>Venues</h1>
- 				<h3>Start planning your event today!!</h3>
- 				<hr>
- 			</div>
- 		</div>
- 	</div>
- </div>
- 
- 
- <table class = "table table-hover table-dark">
- 
-	 <thead>
-		 <tr>
-			 <th>Name</th>
-			 <th>Location</th>
-			 <th>Capacity</th>
-			 <th>Price</th>
-			 <th>Contact</th>
-			 <th>Catering</th>
-			 <th>Decoration</th>
-			 <th>Category</th>
-			 <th>Description</th>
-		 </tr>
-	 </thead>
-	 <tbody>
-		<% for (var i = 0; i < venues.length; i++) { %>
-			<tr>
-			  <td><%= venues[i].name %></td>
-			  <td><%= venues[i].location %></td>
-			  <td><%= venues[i].capacity %></td>
-			  <td><%= venues[i].price %></td>
-			  <td><%= venues[i].contactno %></td>
-			  <td><%= venues[i].catering %></td>
-			  <td><%= venues[i].decoration %></td>
-			  <td><%= venues[i].category %></td>
-			  <td><%= venues[i].description %></td>
-			</tr>    
-		<% } %>
-	 </tbody>
- </table>
+
+<div class="jumbotron">
+	<h2>Submit A New Venue</h2>
+	<a align="center" class="btn btn-primary btn-lg" href="/newVenue">Add New Venue</a>
+</div>
+
+<header class = "w3-container w3-teal">
+	<h1 align = "center">VENUES</h1>
+</header>
 
 
-<!-- <script src="scripts/background.js"></script> -->
+
+<div class = "container"></div>
+	<div class="row text-center" style="display:flex; flex-wrap: wrap;">
+		<% venues.forEach(function(venues){ %>
+			<div class="col-md-3 col-sm-6">
+				<div class="thumbnail">
+				<img src="<%= venues.image %>">
+				<div class="caption">
+					<h4><%= venues.name %></h4>
+				</div>
+				<p>
+					<a href="/venues/<%=venues._id %>" class="btn btn-primary">More Info</a>
+				</p>
+				</div>
+			</div>
+		<% }); %>
+	</div>
+</div>
 
 <% include partials/footer %>
