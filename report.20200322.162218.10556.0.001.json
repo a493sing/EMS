@@ -1,0 +1,150 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200322.162218.10556.0.001.json",
+    "dumpEventTime": "2020-03-22T16:22:18Z",
+    "dumpEventTimeStamp": "1584908538899",
+    "processId": 10556,
+    "cwd": "C:\\Users\\Admin\\Documents\\GitHub\\EMS2",
+    "commandLine": [
+      "node",
+      "app.js"
+    ],
+    "nodejsVersion": "v12.16.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.16.0",
+      "v8": "7.8.279.23-node.31",
+      "uv": "1.34.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.4",
+      "http_parser": "2.9.3",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.16.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "6.2.9200",
+    "osVersion": "Windows 8",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz",
+        "speed": 2594,
+        "user": 108326921,
+        "nice": 0,
+        "sys": 28626234,
+        "idle": 806953890,
+        "irq": 1463250
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz",
+        "speed": 2594,
+        "user": 99363937,
+        "nice": 0,
+        "sys": 29796140,
+        "idle": 814746796,
+        "irq": 3799296
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz",
+        "speed": 2594,
+        "user": 109196718,
+        "nice": 0,
+        "sys": 25746703,
+        "idle": 808963453,
+        "irq": 697281
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-3230M CPU @ 2.60GHz",
+        "speed": 2594,
+        "user": 98976671,
+        "nice": 0,
+        "sys": 24462046,
+        "idle": 820468156,
+        "irq": 1791734
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "2607:fea8:1cc0:18:a132:4c01:96ed:9175",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "fd00:f0f2:4906:fc12:a132:4c01:96ed:9175",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "2607:fea8:1cc0:18::4",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "2607:fea8:1cc0:18:406b:ff01:9ed6:d8f9",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "fd00:f0f2:4906:fc12:406b:ff01:9ed6:d8f9",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "fe80::a132:4c01:96ed:9175",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 13
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "60:6c:66:61:a3:9b",
+        "address": "192.168.0.14",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+     
