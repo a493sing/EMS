@@ -7,22 +7,20 @@
 
  
 <header class = "w3-container w3-red">
-	 <h1 align = "center">CATERING</h1>
+	 <h1 align = "center"><%= catering.name %></h1>
 </header>
 
-
-<!-- <div class="caption-full">
-	<h4 class="pull-right">$9.00/night</h4>
-	<h4><a><%=catering.name%></a></h4>
-	<p><%= catering.description %></p>
-</div> -->
-
 <div class="row">
-	<div class="col-md-2">
-		<button type="button" class="btn btn-primary btn-block"><%= catering.name %></button>
-		
+	<div class="col-md-3">
+		<div class="list-group">
+			<li align="center" class="list-group-item active">MORE DETAILS</li>
+			<li class="list-group-item">Location : <%= catering.location %></li>
+			<li class="list-group-item">Price : <%= catering.price %> CA$ per person</li>
+			<li class="list-group-item">Beverages : <%= catering.beverages %></li>
+			<li class="list-group-item">Contact : <%= catering.contactno %></li>
+		</div>
 	</div>
-	<div class="col-md-9" align = "center">
+	<div class="col-md-9" align = "left">
 		<div class="thumbnail">
             <p><%= catering.description %></p>
 			<img class="img-responsive" src="<%= catering.image %>">

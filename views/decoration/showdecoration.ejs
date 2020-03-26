@@ -8,7 +8,7 @@
 
  
 <header class = "w3-container w3-blue">
-	 <h1 align = "center">DECORATIONS</h1>
+	 <h1 align = "center"><%= decorations.name %></h1>
 </header>
 
 
@@ -19,11 +19,15 @@
 </div> -->
 
 <div class="row">
-	<div class="col-md-2">
-		<button type="button" class="btn btn-primary btn-block"><%= decorations.name %></button>
-		
+	<div class="col-md-3">
+		<div class="list-group">
+			<li align="center" class="list-group-item active">MORE DETAILS</li>
+			<li class="list-group-item">Location : <%= decorations.location %></li>
+			<li class="list-group-item">Price : <%= decorations.price %> CA$</li>
+			<li class="list-group-item">Contact : <%= decorations.contactno %></li>
+		</div>
 	</div>
-	<div class="col-md-9" align = "center">
+	<div class="col-md-9" align = "left">
 		<div class="thumbnail">
             <p><%= decorations.description %></p>
 			<img class="img-responsive" src="<%= decorations.image %>">
