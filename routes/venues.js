@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log("Venues")
+            //console.log("Venues")
             res.render('venues', { venues: venues });
         }
     });
