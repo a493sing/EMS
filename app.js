@@ -23,7 +23,7 @@ var indexRoutes      = require("./routes/index"),
     cateringRoutes      = require("./routes/catering"),
     decorationRoutes      = require("./routes/decorations")
     
-mongoose.connect("mongodb://localhost/yelp_camp_v9");
+mongoose.connect("mongodb://localhost/EMS_v1");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));

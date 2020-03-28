@@ -1,7 +1,6 @@
 var express = require("express");
 var router  = express.Router();
-var Campground = require("../models/ems");
-// var middleware = require("../middleware");
+var middleware = require("../middleware");
 var request = require("request");
 var Venues = require("../models/venues");
 
@@ -16,106 +15,59 @@ router.get('/', function(req, res) {
     });
 });
 
-/* STARTED MODIFYING FOR VENUES - TO BE CONTINUED
+router.get("/:id", function(req, res){
+    //find the venues with provided ID
+    Venues.findById(req.params.id, function(err, ven){
+        if(err){
+            console.log(err);
+            console.log("Testing");
+        } else {
+            //render show template with that venues
+            res.render("venues/showvenue", {venue: ven});
+        }
+    });
+});
 
-// CREATE - add new venue to DB
+// router.get("/newVenue", function(req, res){
+//     res.render("venues/new"); 
+// });
+
+//CREATE - add new venue to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // get data from form and add to venues array
     var name = req.body.name;
-    var location = req.body.location;
-    var cap = req.body.capacity;
+    var image = req.body.image;
+    var desc = req.body.description;
     var price = req.body.price;
-    var contact = req.body.contact;
-    var catering = req.body.catering;
-    var decoration = req.body.decoration;
-    var category = req.body.category;
-    var description = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }    
-    var newVenue = {
-        name: name, 
-        image: image, 
-        price: price,
-        description: description,
-        location: location,
-        capacity: cap,
-        category: category,
-        contactno: contact,
-        cateringAvailable: catering,
-        decorationAvailable: decoration,        
-        author:author
+    var loc = req.body.location;
+    var cap = req.body.capacity;
+    var cat = req.body.category;
+    var con = req.body.contactno;
+    var cater = req.body.cateringAvailable;
+    var dec = req.body.decorationAvailable;
+    var flag = false;
+    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "" || con == "") {
+        console.log("Venue info not complete.");
+        req.flash("error", "There cannot be an empty field!!");
+        res.redirect("/newVenue");
+    } else {
+        flag = true;
+        var newVenue = {name: name, image: image, description: desc, price: price, location: loc, capacity: cap, 
+            category: cat, contactno: con, cateringAvailable: cater, decorationAvailable: dec}
+        // Create a new venue and save to DB
+        if(flag) {
+            Venues.create(newVenue, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                } else {
+                    //redirect back to venues page
+                    console.log(newlyCreated);
+                    res.redirect("/venues");
+                }
+            });
+        }
     }
 
-    // Create a new campground and save to DB
-    Venues.create(newVenue, function(err, newlyCreated){
-        if(err){
-            console.log(err);
-        } else {
-            //redirect back to campgrounds page
-            console.log(newlyCreated);
-            res.redirect("/venues");
-        }
-    });
 });
-
-//NEW - show form to create new campground
-router.get("/new", middleware.isLoggedIn, function(req, res){
-   res.render("venues/new"); 
-});
-
-// SHOW - shows more info about one campground
-router.get("/:id", function(req, res){
-    //find the campground with provided ID
-    Venues.findById(req.params.id).populate("comments").exec(function(err, foundVenue){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(foundVenue)
-            //render show template with that campground
-            res.render("venues/show", {venue: foundCampground});
-        }
-    });
-});
-
-router.get("/:id/edit", middleware.checkUserCampground, function(req, res){
-    console.log("IN EDIT!");
-    //find the campground with provided ID
-    Campground.findById(req.params.id, function(err, foundCampground){
-        if(err){
-            console.log(err);
-        } else {
-            //render show template with that campground
-            res.render("campgrounds/edit", {campground: foundCampground});
-        }
-    });
-});
-
-router.put("/:id", function(req, res){
-    var newData = {name: req.body.name, image: req.body.image, description: req.body.desc};
-    Campground.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, campground){
-        if(err){
-            req.flash("error", err.message);
-            res.redirect("back");
-        } else {
-            req.flash("success","Successfully Updated!");
-            res.redirect("/campgrounds/" + campground._id);
-        }
-    });
-});
-
-
-//middleware
-// function isLoggedIn(req, res, next){
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     req.flash("error", "You must be signed in to do that!");
-//     res.redirect("/login");
-// }
-
-*/
 
 module.exports = router;
 
