@@ -15,6 +15,10 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("venues/new"); 
+});
+
 router.get("/:id", function(req, res){
     //find the venues with provided ID
     Venues.findById(req.params.id, function(err, ven){
@@ -27,10 +31,6 @@ router.get("/:id", function(req, res){
         }
     });
 });
-
-// router.get("/newVenue", function(req, res){
-//     res.render("venues/new"); 
-// });
 
 //CREATE - add new venue to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -48,7 +48,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "" || con == "") {
         console.log("Venue info not complete.");
         req.flash("error", "There cannot be an empty field!!");
-        res.redirect("/newVenue");
+        res.redirect("/venues/new");
     } else {
         flag = true;
         var newVenue = {name: name, image: image, description: desc, price: price, location: loc, capacity: cap, 

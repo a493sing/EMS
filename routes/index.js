@@ -69,14 +69,4 @@ router.get("/logout", function(req, res){
 //     res.redirect("/login");
 // }
 
-router.get("/newDecoration", function(req, res){
-    res.render("decoration/new"); 
-});
-router.get("/newCaterer", function(req, res){
-    res.render("catering/new"); 
-});
-router.get("/newVenue", function(req, res){
-    res.render("venues/new"); 
-});
-
 module.exports = router;
