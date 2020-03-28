@@ -14,6 +14,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("decoration/new"); 
+});
+
 //SHOW - shows more info about a selected decoration
 router.get("/:id", function(req, res) {
     // find the campground with provided ID
@@ -28,10 +32,6 @@ router.get("/:id", function(req, res) {
     });    
 });
 
-// router.get("/newDecoration", function(req, res){
-//     console.log("I am here ")
-//     res.render("decoration/new"); 
-// });
 
 //CREATE - add new Decorator to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -46,7 +46,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     if(name == "" || image == "" || desc == "" || price == "" || loc == "" || con == "") {
         console.log("Decorator info not complete.");
         req.flash("error", "There cannot be an empty field!!");
-        res.redirect("/newDecoration");
+        res.redirect("/decorations/new");
     } else {
         flag = true;
         var newDeco = {name: name, image: image, description: desc, price: price, location: loc, 
