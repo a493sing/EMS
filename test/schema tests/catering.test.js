@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const CateringModel = require('../models/catering');
+const CateringModel = require('../../models/catering');
 
 describe('Catering Model Test', () => {
 
