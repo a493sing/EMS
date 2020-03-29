@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const UserModel = require('../models/user');
+const UserModel = require('../../models/user');
 
 describe('User Model Test', () => {
 

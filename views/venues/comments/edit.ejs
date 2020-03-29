@@ -9,7 +9,7 @@
         <h1> Edit comment </h1>
         <div style="width: 30%; margin: 25px auto;">
        
-            <form action="/catering/<%= catering_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <form action="/venues/<%= venues_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>">
                 </div>
@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-md btn-block"> Submit </button>
                 </div>
-                <a href="/catering"> Catering page</a>
+                <a href="/venues"> Venues page</a>
             </form>
          </div>
     </div>

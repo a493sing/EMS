@@ -16,6 +16,10 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("catering/new"); 
+});
+
 router.get("/:id", function(req, res){
     //find the catering with provided ID
     Catering.findById(req.params.id).populate("comments").exec(function(err, catr){
@@ -28,10 +32,6 @@ router.get("/:id", function(req, res){
         }
     });
 });
-
-// router.get("/newCaterer", function(req, res){
-//     res.render("catering/new"); 
-// });
 
 //CREATE - add new Caterer to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -46,7 +46,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     if(name == "" || image == "" || desc == "" || price == "" || loc == "" || con == "" || bev == "") {
         console.log("Caterer info not complete.");
         req.flash("error", "There cannot be an empty field!!");
-        res.redirect("/newCaterer");
+        res.redirect("/catering/new");
     } else {
         flag = true;
         var newCaterer = {name: name, image: image, description: desc, price: price, location: loc, 
