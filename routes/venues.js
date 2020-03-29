@@ -1,121 +1,164 @@
 var express = require("express");
 var router  = express.Router();
-var Campground = require("../models/ems");
-// var middleware = require("../middleware");
+var middleware = require("../middleware");
 var request = require("request");
 var Venues = require("../models/venues");
+var Comment = require("../models/comment");
 
 router.get('/', function(req, res) {
     Venues.find({}, function(err, venues) {
         if (err) {
             console.log(err);
         } else {
-            console.log("Venues")
+            //console.log("Venues")
             res.render('venues', { venues: venues });
         }
     });
 });
 
-/* STARTED MODIFYING FOR VENUES - TO BE CONTINUED
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("venues/new"); 
+});
 
-// CREATE - add new venue to DB
+//SHOW - shows more info about a selected venue
+router.get("/:id", function(req, res) {
+    // find the campground with provided ID
+    Venues.findById(req.params.id).populate("comments").exec(function(error, foundVenue){
+        if(error){
+            console.log(error);
+        }else{
+            //render show template with that venue
+            res.render("venues/showvenue", {venue: foundVenue});
+            
+        }
+    });    
+});
+
+//CREATE - add new venue to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // get data from form and add to venues array
     var name = req.body.name;
-    var location = req.body.location;
-    var cap = req.body.capacity;
+    var image = req.body.image;
+    var desc = req.body.description;
     var price = req.body.price;
-    var contact = req.body.contact;
-    var catering = req.body.catering;
-    var decoration = req.body.decoration;
-    var category = req.body.category;
-    var description = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }    
-    var newVenue = {
-        name: name, 
-        image: image, 
-        price: price,
-        description: description,
-        location: location,
-        capacity: cap,
-        category: category,
-        contactno: contact,
-        cateringAvailable: catering,
-        decorationAvailable: decoration,        
-        author:author
+    var loc = req.body.location;
+    var cap = req.body.capacity;
+    var cat = req.body.category;
+    var con = req.body.contactno;
+    var cater = req.body.cateringAvailable;
+    var dec = req.body.decorationAvailable;
+    var flag = false;
+    if(name == "" || image == "" || desc == "" || price == "" || loc == "" || cap == "" || cat == "" || cater == "" || dec == "" || con == "") {
+        console.log("Venue info not complete.");
+        req.flash("error", "There cannot be an empty field!!");
+        res.redirect("/venues/new");
+    } else {
+        flag = true;
+        var newVenue = {name: name, image: image, description: desc, price: price, location: loc, capacity: cap, 
+            category: cat, contactno: con, cateringAvailable: cater, decorationAvailable: dec}
+        // Create a new venue and save to DB
+        if(flag) {
+            Venues.create(newVenue, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                } else {
+                    //redirect back to venues page
+                    console.log(newlyCreated);
+                    res.redirect("/venues");
+                }
+            });
+        }
     }
 
-    // Create a new campground and save to DB
-    Venues.create(newVenue, function(err, newlyCreated){
+});
+
+//comment new
+router.get("/:id/comments/new", middleware.isLoggedIn, function(req, res) {
+    //console.log("MK : router.get(/:id/comments/new)");
+    // find campground by id 
+    Venues.findById(req.params.id, function(err, foundVenue){
         if(err){
             console.log(err);
-        } else {
-            //redirect back to campgrounds page
-            console.log(newlyCreated);
+        }else{
+             // send that campground to new comment form template
+            res.render("venues/comments/new", {venues: foundVenue});
+        }
+    });
+   
+});
+
+router.post("/:id/comments", middleware.isLoggedIn, function(req, res){
+    //console.log("MK : router.post(/:id/comments)");
+    // lookup the venue using id
+    Venues.findById(req.params.id, function(err, foundVenue) {
+        if(err){
+            console.log(err);
             res.redirect("/venues");
+        }else{
+            // create new comment
+            Comment.create(req.body.comment, function(err, comment){
+               if(err){
+                   req.flash("error", "something went wrong");
+                   console.log(err);
+               }else{
+                   // add username and id to the comment
+                   comment.author.id = req.user._id;
+                   comment.author.username = req.user.username;
+                   //save comment
+                   comment.save();
+                   // connect new comment to the campgound
+                   foundVenue.comments.push(comment);
+                   foundVenue.save();  // saving the changes to the DB
+                    // redirect to that show campground
+                    //console.log("MK : ", comment);
+                    req.flash("success", "Successfully added comment");
+                    res.redirect('/venues/' + foundVenue._id);
+               }
+            });      
+           
         }
     });
+    
 });
 
-//NEW - show form to create new campground
-router.get("/new", middleware.isLoggedIn, function(req, res){
-   res.render("venues/new"); 
-});
-
-// SHOW - shows more info about one campground
-router.get("/:id", function(req, res){
-    //find the campground with provided ID
-    Venues.findById(req.params.id).populate("comments").exec(function(err, foundVenue){
+// EDIT Route
+router.get("/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
+    //console.log("MK : router.get(/:id/comments/:comment_id/edit)");
+    Comment.findById(req.params.comment_id, function(err, foundComment) {
         if(err){
             console.log(err);
-        } else {
-            console.log(foundVenue)
-            //render show template with that campground
-            res.render("venues/show", {venue: foundCampground});
-        }
-    });
-});
-
-router.get("/:id/edit", middleware.checkUserCampground, function(req, res){
-    console.log("IN EDIT!");
-    //find the campground with provided ID
-    Campground.findById(req.params.id, function(err, foundCampground){
-        if(err){
-            console.log(err);
-        } else {
-            //render show template with that campground
-            res.render("campgrounds/edit", {campground: foundCampground});
-        }
-    });
-});
-
-router.put("/:id", function(req, res){
-    var newData = {name: req.body.name, image: req.body.image, description: req.body.desc};
-    Campground.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, campground){
-        if(err){
-            req.flash("error", err.message);
             res.redirect("back");
-        } else {
-            req.flash("success","Successfully Updated!");
-            res.redirect("/campgrounds/" + campground._id);
+        }else{            
+            res.render("venues/comments/edit", {venues_id: req.params.id, comment: foundComment});
         }
     });
 });
 
+//UPDATE Route
+router.put("/:id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res){
+    // console.log("MK : router.put(/:id/comments/:comment_id)");
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }else{
+            res.redirect('/venues/' + req.params.id);
+        }
+    });
+});
 
-//middleware
-// function isLoggedIn(req, res, next){
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     req.flash("error", "You must be signed in to do that!");
-//     res.redirect("/login");
-// }
-
-*/
+//COMMENT Destroy Route
+router.delete("/:id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res){
+    //console.log("MK : router.delete(/:id/comments/:comment_id)");
+    Comment.findByIdAndRemove(req.params.comment_id, function(err){
+        if(err){
+            console.log(err);
+            res.redirect("/venues/" + req.params.id);
+        }else{
+            req.flash("success", "Successfully deleted the comment..");
+            res.redirect("/venues/" + req.params.id);
+        }
+    });
+});
 
 module.exports = router;
 

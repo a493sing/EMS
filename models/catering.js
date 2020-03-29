@@ -8,9 +8,19 @@ var cateringSchema = new mongoose.Schema({
    price: String,
    beverages: String,
    contactno: String,
-   id: {
-      type: mongoose.Schema.Types.ObjectId
-   }
+   author: {
+      id: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "user"
+      },
+      username: String
+   },
+   comments: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "comment"
+      }
+   ]
 });
 
 module.exports = mongoose.model("catering", cateringSchema);

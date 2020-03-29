@@ -3,6 +3,7 @@ var csv = require('fast-csv');
 var Venues   = require("./models/venues");
 var Catering = require("./models/catering");
 var Decorations   = require("./models/decorations");
+var Comment   = require("./models/comment");
 
 var csvHeaders = {
     VENUES: {
@@ -18,6 +19,13 @@ var csvHeaders = {
 };
 
 function seedEmsDataCsv() {
+    // remove all comments
+    Comment.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("removed all comments!");
+    });     
     // Import CSV to MongoDB
     importCSVFile(__dirname + '/dbdata/venues.csv', Venues, 'venues');
     importCSVFile(__dirname + '/dbdata/catering.csv', Catering, 'catering');
