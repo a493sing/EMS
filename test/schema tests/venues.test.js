@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const VenueModel = require('../models/venues');
+const VenueModel = require('../../models/venues');
 
 describe('Venues Model Test', () => {
 
