@@ -43,6 +43,18 @@
 	<div class="text-right">
 		<a class="btn btn-primary btn-md btn-success" href="/venues/<%= venue._id %>/comments/new"> Add a new comment</a>
 	</div>
+	<div class="left">
+		<p>
+			<em>Submitted by: <a><%= venue.author.username %></a>, <%= moment(venue.createdAt).calendar() %></em>
+		</p>
+		<% if(currentUser && venue.author.id.equals(currentUser._id)){ %>
+			<a class="btn btn-warning" href="/venues/<%= venue._id %>/edit">Edit</a>
+			<form style="display: inline" action="/venues/<%= venue._id %>?_method=DELETE" method="POST" class="delete-form">
+			  <button class="btn btn-danger">Delete</button>
+			</form>
+			<% } %>
+	</div>
+
 	<hr>
 	<div class="left">
 		<h1>Reviews</h1>
@@ -52,7 +64,7 @@
 		<div class="col-md-12">
 			<div class="well well-lg">
 			<strong> <%= comment.author.username %> </strong> 
-			<!-- <span class="pull-right">10 days ago</span> -->
+			<span class="pull-right"><%= moment(comment.createdAt).calendar() %></span>
 			<p><%= comment.text %></p>
 			<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
 			<form style="display: inline" class="text-right" action="/venues/<%=venue._id %>/comments/<%=comment._id%>?_method=DELETE" method="POST">

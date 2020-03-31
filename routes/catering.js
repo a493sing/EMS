@@ -64,8 +64,58 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             });
         }
     }
-
 });
+
+//NEW
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("catering/new"); 
+ });
+
+//EDIT
+router.get("/:id/edit", middleware.checkCateringOwnership, function(req, res){
+    //find the caterer with provided ID
+    Catering.findById(req.params.id, function(err, catr){
+        if(err){
+            console.log(err);
+        } else {
+            //render show template with that caterer
+            res.render("catering/edit", {catering: catr});
+        }
+    });
+});
+
+//UPDATE
+router.put("/:id", function(req, res){
+    var newData = {name: req.body.name, 
+        image: req.body.image, description: req.body.description, 
+        contactno: req.body.contactno, price: req.body.price,
+        location: req.body.location, beverages: req.body.beverages    
+    };
+    Catering.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, catering){
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            console.log("HERE at edit");
+            req.flash("success","Successfully Updated!");
+            res.redirect("/catering/" + catering._id);
+        }
+    });
+});
+
+//DELETE
+router.delete("/:id", function(req, res) {
+    Catering.findByIdAndRemove(req.params.id, function(err, catering) {
+      Comment.remove({
+        _id: {
+          $in: catering.comments
+        }
+      }, function(err, comments) {
+        req.flash('error', catering.name + ' deleted!');
+        res.redirect('/catering');
+      })
+    });
+  });
 
 //comment new
 router.get("/:id/comments/new", middleware.isLoggedIn, function(req, res) {
