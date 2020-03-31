@@ -68,8 +68,60 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             });
         }
     }
-
 });
+
+//NEW
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("venues/new"); 
+ });
+
+//EDIT
+router.get("/:id/edit", middleware.checkVenuesOwnership, function(req, res){
+    //find the venue with provided ID
+    Venues.findById(req.params.id, function(err, foundVen){
+        if(err){
+            console.log(err);
+        } else {
+            //render show template with that venue
+            res.render("venues/edit", {venue: foundVen});
+        }
+    });
+});
+
+//UPDATE
+router.put("/:id", function(req, res){
+    var newData = {name: req.body.name, 
+        image: req.body.image, description: req.body.description, 
+        contactno: req.body.contactno, price: req.body.price,
+        location: req.body.location, capacity: req.body.capacity,
+        cateringAvailable: req.body.cateringAvailable, decorationAvailable: req.body.decorationAvailable,
+        category: req.body.category    
+    };
+    Venues.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, venues){
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            console.log("HERE at edit");
+            req.flash("success","Successfully Updated!");
+            res.redirect("/venues/" + venues._id);
+        }
+    });
+});
+
+//DELETE
+router.delete("/:id", function(req, res) {
+    Venues.findByIdAndRemove(req.params.id, function(err, venues) {
+      Comment.remove({
+        _id: {
+          $in: venues.comments
+        }
+      }, function(err, comments) {
+        req.flash('error', venues.name + ' deleted!');
+        res.redirect('/venues');
+      })
+    });
+  });
 
 //comment new
 router.get("/:id/comments/new", middleware.isLoggedIn, function(req, res) {

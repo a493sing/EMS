@@ -57,15 +57,65 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 if(err){
                     console.log(err);
                 } else {
-                    //redirect back to venues page
+                    //redirect back to decorations page
                     console.log(newlyCreated);
                     res.redirect("/decorations");
                 }
             });
         }
     }
-
 });
+
+//NEW
+router.get("/new", middleware.isLoggedIn, function(req, res){
+    res.render("decoration/new"); 
+ });
+
+//EDIT
+router.get("/:id/edit", middleware.checkDecorationsOwnership, function(req, res){
+    //find the decoration with provided ID
+    Decorations.findById(req.params.id, function(err, foundDeco){
+        if(err){
+            console.log(err);
+        } else {
+            //render show template with that decoration
+            res.render("decoration/edit", {decorations: foundDeco});
+        }
+    });
+});
+
+//UPDATE
+router.put("/:id", function(req, res){
+    var newData = {name: req.body.name, 
+        image: req.body.image, description: req.body.description, 
+        contactno: req.body.contactno, price: req.body.price,
+        location: req.body.location    
+    };
+    Decorations.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, decorations){
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            console.log("HERE at edit");
+            req.flash("success","Successfully Updated!");
+            res.redirect("/decorations/" + decorations._id);
+        }
+    });
+});
+
+//DELETE
+router.delete("/:id", function(req, res) {
+    Decorations.findByIdAndRemove(req.params.id, function(err, decorations) {
+      Comment.remove({
+        _id: {
+          $in: decorations.comments
+        }
+      }, function(err, comments) {
+        req.flash('error', decorations.name + ' deleted!');
+        res.redirect('/decorations');
+      })
+    });
+  });
 
 //comment new
 router.get("/:id/comments/new", middleware.isLoggedIn, function(req, res) {

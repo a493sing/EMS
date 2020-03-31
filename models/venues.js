@@ -11,6 +11,7 @@ var venuesSchema = new mongoose.Schema({
    contactno: String,
    cateringAvailable: String,
    decorationAvailable: String,
+   createdAt: { type: Date, default: Date.now },
    author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,
