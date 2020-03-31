@@ -30,11 +30,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
-//seed the database
-//seedDB(); 
-//seedEmsData();
-seedEmsDataCsv();
-
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "Once again Rusty wins cutest dog!",
@@ -60,6 +55,11 @@ app.use("/", indexRoutes);
 app.use("/venues", venueRoutes);
 app.use("/catering", cateringRoutes);
 app.use("/decorations", decorationRoutes);
+
+// seed the database only for first time
+//seedDB(); 
+//seedEmsData();
+seedEmsDataCsv();
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){
