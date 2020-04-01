@@ -21,30 +21,30 @@ var csvHeaders = {
 
 function userRegistration() {
     // remove all users
-    User.remove({}, function(err){
+    User.deleteMany({}, function(err){
         if(err){
             console.log(err);
         }
-        console.log("removed all comments!");
-    });        
-    
-    // create admin user
-    User.register({username: "admin"}, "1234", function(err, user){
-        if(err) {
-            console.log(err);
-        }
-        else {
-            user.save(function (err) {
-                if (err)
-                    console.log(err);
-                else
-                console.log("Successfully created user account")
-            });
+        // console.log("removed all users");
 
-            // Add sample comments to business
-            addComment();  
-        }
-    }); 
+        // create admin user
+        User.register({username: "admin"}, "1234", function(err, user){
+            if(err) {
+                console.log(err);
+            }
+            else {
+                user.save(function (err) {
+                    if (err)
+                        console.log(err);
+                    else
+                    console.log("created admin account")
+                });
+
+                // Add sample comments to business
+                addComment();  
+            }
+        });         
+    });        
 }
 
 var cmntData = [{text: "This decorator is best in the city"},
@@ -53,90 +53,139 @@ var cmntData = [{text: "This decorator is best in the city"},
 
 function addComment() {
 
-    User.find({}, function(err, foundUsers){
-        foundUsers.map(foundUser => {        
-        // console.log("MK", foundUser)
+    // remove all comments
+    Comment.deleteMany({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        // console.log("removed all comments!");    
 
-        Decorations.find({}, function(err, foundDecos){
-            foundDecos.map(foundDeco => {
-          
-                foundDeco.author.id = foundUser._id;
-                foundDeco.author.username = foundUser.username;                
+        User.find({}, function(err, foundUsers){
+            foundUsers.map(foundUser => {        
+            // console.log("MK", foundUser)
 
-                // create new comment
-                Comment.create(cmntData[0], function(err, comment){
-                    if(err){
-                        req.flash("error", "something went wrong");
-                        console.log(err);
-                    }else{
+            Decorations.find({}, function(err, foundDecos){
+                foundDecos.map(foundDeco => {
+            
+                    foundDeco.author.id = foundUser._id;
+                    foundDeco.author.username = foundUser.username;                
 
-                        // add username and id to the comment
-                        comment.author.id = foundUser._id;
-                        comment.author.username = foundUser.username;
-                        //save comment
-                        comment.save();
-                        // connect new comment to the campgound
-                        foundDeco.comments.push(comment);
-                        foundDeco.save();  // saving the changes to the DB
-                    }
+                    // create new comment
+                    Comment.create(cmntData[0], function(err, comment){
+                        if(err){
+                            req.flash("error", "something went wrong");
+                            console.log(err);
+                        }else{
+
+                            // add username and id to the comment
+                            comment.author.id = foundUser._id;
+                            comment.author.username = foundUser.username;
+                            //save comment
+                            comment.save();
+                            // connect new comment to the campgound
+                            foundDeco.comments.push(comment);
+                            foundDeco.save();  // saving the changes to the DB
+                        }
+                    });
                 });
             });
+            
+            Venues.find({}, function(err, foundVenues){
+                foundVenues.map(foundVenue => {
+
+                    foundVenue.author.id = foundUser._id;
+                    foundVenue.author.username = foundUser.username; 
+
+                    // create new comment
+                    Comment.create(cmntData[1], function(err, comment){
+                        if(err){
+                            req.flash("error", "something went wrong");
+                            console.log(err);
+                        }else{
+
+                            // add username and id to the comment
+                            comment.author.id = foundUser._id;
+                            comment.author.username = foundUser.username;
+                            //save comment
+                            comment.save();
+                            // connect new comment to the campgound
+                            foundVenue.comments.push(comment);
+                            foundVenue.save();  // saving the changes to the DB
+                        }
+                    });
+                });
+            });
+            
+            Catering.find({}, function(err, foundCatering){
+                foundCatering.map(foundCateror => {
+
+                    foundCateror.author.id = foundUser._id;
+                    foundCateror.author.username = foundUser.username; 
+
+                    // create new comment
+                    Comment.create(cmntData[2], function(err, comment){
+                        if(err){
+                            req.flash("error", "something went wrong");
+                            console.log(err);
+                        }else{
+
+                            // add username and id to the comment
+                            comment.author.id = foundUser._id;
+                            comment.author.username = foundUser.username;
+                            //save comment
+                            comment.save();
+                            // connect new comment to the campgound
+                            foundCateror.comments.push(comment);
+                            foundCateror.save();  // saving the changes to the DB
+                        }
+                    });
+                });
+            });         
         });
-        
-        Venues.find({}, function(err, foundVenues){
-            foundVenues.map(foundVenue => {
-
-                foundVenue.author.id = foundUser._id;
-                foundVenue.author.username = foundUser.username; 
-
-                // create new comment
-                Comment.create(cmntData[1], function(err, comment){
-                    if(err){
-                        req.flash("error", "something went wrong");
-                        console.log(err);
-                    }else{
-
-                        // add username and id to the comment
-                        comment.author.id = foundUser._id;
-                        comment.author.username = foundUser.username;
-                        //save comment
-                        comment.save();
-                        // connect new comment to the campgound
-                        foundVenue.comments.push(comment);
-                        foundVenue.save();  // saving the changes to the DB
-                    }
-                });
-            });
-        });
-        
-        Catering.find({}, function(err, foundCatering){
-            foundCatering.map(foundCateror => {
-
-                foundCateror.author.id = foundUser._id;
-                foundCateror.author.username = foundUser.username; 
-
-                // create new comment
-                Comment.create(cmntData[2], function(err, comment){
-                    if(err){
-                        req.flash("error", "something went wrong");
-                        console.log(err);
-                    }else{
-
-                        // add username and id to the comment
-                        comment.author.id = foundUser._id;
-                        comment.author.username = foundUser.username;
-                        //save comment
-                        comment.save();
-                        // connect new comment to the campgound
-                        foundCateror.comments.push(comment);
-                        foundCateror.save();  // saving the changes to the DB
-                    }
-                });
-            });
-        });         
     });
 });
 
+}
+
+function importCSVFile(filePath, modelSchema, modelName) {
+    
+    // Remove existing entries
+    modelSchema.deleteMany({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        //console.log("removed all " + modelName);
+
+        // Populate data from CSV  
+        csv
+            .parseFile(filePath, {headers: true, ignoreEmpty: true})
+            .on('data', function(data) {
+
+                //console.log(data);
+                
+                var Obj = mongoose.model(modelName);
+                var obj = new Obj();
+
+                Object.keys(data).forEach(function(key) {
+                    var val = data[key];
+                    
+                    //console.log(key);
+                    //console.log(val);
+
+                    if (val !== '')
+                        obj.set(key, val);
+                });
+
+                obj.save(function (err) {
+                    if (err)
+                        console.log(err);
+                });
+                
+            })
+            .on('end', function() {
+                console.log(modelName + " data loaded");
+            });          
+    });      
 }
 
 function seedEmsDataCsv() {
@@ -146,61 +195,8 @@ function seedEmsDataCsv() {
     importCSVFile(__dirname + '/dbdata/catering.csv', Catering, 'catering');
     importCSVFile(__dirname + '/dbdata/decorations.csv', Decorations, 'decorations');
 
-    // remove all comments
-    Comment.remove({}, function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log("removed all comments!");
-    });
-
-    // Register admins
-    userRegistration();   
-
-    // Add comments to business
-    // Not working if I call here, because user is not populated properly
-    //addComment();     
-}
-
-function importCSVFile(filePath, modelSchema, modelName) {
-    
-    // Remove existing entries
-    modelSchema.remove({}, function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log("removed all " + modelName);
-    });
-
-    // Populate data from CSV  
-    csv
-        .parseFile(filePath, {headers: true, ignoreEmpty: true})
-        .on('data', function(data) {
-
-            //console.log(data);
-            
-            var Obj = mongoose.model(modelName);
-            var obj = new Obj();
-
-            Object.keys(data).forEach(function(key) {
-                var val = data[key];
-                
-                //console.log(key);
-                //console.log(val);
-
-                if (val !== '')
-                    obj.set(key, val);
-            });
-
-            obj.save(function (err) {
-                if (err)
-                    console.log(err);
-            });
-            
-        })
-        .on('end', function() {
-            console.log(modelName + " data loaded");
-        });        
+    // Register admin and add admin comment to business
+    userRegistration();     
 }
 
 module.exports = seedEmsDataCsv;
