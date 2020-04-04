@@ -7,6 +7,7 @@ var decorationsSchema = new mongoose.Schema({
    location: String,
    price: String,
    contactno: String,
+   createdAt: { type: Date, default: Date.now },
    author: {
       id: {
          type: mongoose.Schema.Types.ObjectId,

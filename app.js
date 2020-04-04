@@ -16,6 +16,7 @@ var express     = require("express"),
     //seedEmsData = require("./seedEmsData"),
     seedEmsDataCsv = require("./seedEmsDataCsv"),    
     methodOverride = require("method-override");
+    moment = require('moment');
     
 //requiring routes
 var indexRoutes      = require("./routes/index"),
@@ -29,11 +30,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
-
-//seed the database
-//seedDB(); 
-//seedEmsData();
-seedEmsDataCsv();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -60,6 +56,12 @@ app.use("/", indexRoutes);
 app.use("/venues", venueRoutes);
 app.use("/catering", cateringRoutes);
 app.use("/decorations", decorationRoutes);
+
+// seed the database
+//seedDB(); 
+//seedEmsData();
+if (process.env.seeddb == 'true')
+    seedEmsDataCsv();
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){

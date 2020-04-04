@@ -1,5 +1,7 @@
 var Comment = require("../models/comment");
 var Decorations  = require("../models/decorations");
+var Catering  = require("../models/catering");
+var Venues  = require("../models/venues");
 
 module.exports = {
     isLoggedIn: function(req, res, next){
@@ -71,5 +73,53 @@ module.exports = {
             req.flash("error", "You must be logged in..");
             res.redirect("back");
         }
-    }
+    },
+
+    checkCateringOwnership: function(req, res, next){
+        if(req.isAuthenticated()){
+           Catering.findById(req.params.id, function(err, catr){
+               if(err){
+                   req.flash("error", "Caterer not found..");
+                   res.redirect("back");
+               }else{
+                   //If yes check if the user owns the caterer
+                   if(catr.author.id.equals(req.user._id)){
+                       next();
+                   }else{  //otherwise, redirect
+                       req.flash("error", "This is not a caterer you created, You do not have permission.. ");
+                       res.redirect("back");
+                   }
+                   
+               }
+           });
+           
+       }else{      // otherwise redirect
+           req.flash("error", "You must be logged in..");
+           res.redirect("back");
+       }
+   },
+
+   checkVenuesOwnership: function(req, res, next){
+    if(req.isAuthenticated()){
+       Venues.findById(req.params.id, function(err, foundVen){
+           if(err){
+               req.flash("error", "Venue not found..");
+               res.redirect("back");
+           }else{
+               //If yes check if the user owns the venue
+               if(foundVen.author.id.equals(req.user._id)){
+                   next();
+               }else{  //otherwise, redirect
+                   req.flash("error", "This is not a venue you created, You do not have permission.. ");
+                   res.redirect("back");
+               }
+               
+           }
+       });
+       
+   }else{      // otherwise redirect
+       req.flash("error", "You must be logged in..");
+       res.redirect("back");
+   }
+}
 }
