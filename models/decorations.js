@@ -7,9 +7,20 @@ var decorationsSchema = new mongoose.Schema({
    location: String,
    price: String,
    contactno: String,
-   id: {
-      type: mongoose.Schema.Types.ObjectId
-   }
+   createdAt: { type: Date, default: Date.now },
+   author: {
+      id: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "user"
+      },
+      username: String
+   },
+   comments: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "comment"
+      }
+   ]
 });
 
 module.exports = mongoose.model("decorations", decorationsSchema);

@@ -11,9 +11,20 @@ var venuesSchema = new mongoose.Schema({
    contactno: String,
    cateringAvailable: String,
    decorationAvailable: String,
-   id: {
-      type: mongoose.Schema.Types.ObjectId
-   }
+   createdAt: { type: Date, default: Date.now },
+   author: {
+      id: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "user"
+      },
+      username: String
+   },
+   comments: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "comment"
+      }
+   ]
 });
 
 module.exports = mongoose.model("venues", venuesSchema);
