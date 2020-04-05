@@ -11,8 +11,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000; // in microseconds.
                 driver = page.driver;
                 await page.setTimeouts(10000);
                 await page.visit("http://localhost:3000/login");
-                loginButton = await page.findByXpath("//input[@type = 'submit']")
-                //loginButton = await page.findByButton("Login")
+                loginButton = await page.findByXpath("//input[@type = 'submit']")                
                 username = await page.findByName("username");
                 password = await page.findByName("password");
             })
