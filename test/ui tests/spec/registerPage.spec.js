@@ -69,6 +69,25 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000; // in microseconds.
                 expect(currentUrl.includes("register")).toBe(false);
             })
 
+            it("should allow a user to register",async function(){
+                let currentUrl = await page.getCurrentUrl();
+                expect(currentUrl.includes("register")).toBe(true);
+
+                // generate random string for username and password
+                let r = Math.random().toString(36).substring(7);
+                await username.sendKeys(r)
+                await password.sendKeys(r)
+                await signupButton.click();
+
+                // after successful registration
+                currentUrl = await page.getCurrentUrl();
+                expect(currentUrl.includes("register")).toBe(false);
+
+                // logout
+                let logout = await page.findByLinkText("Logout")
+                await logout.click();
+            })
+
         })
     } catch (error) {
         console.log(error)

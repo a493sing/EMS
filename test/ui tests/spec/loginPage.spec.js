@@ -75,7 +75,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000; // in microseconds.
                 expect(currentUrl.includes("login")).toBe(false);
             })
 
-            it("should redirect to register page",async function(){
+            it("should redirect to register page for a new user",async function(){
                 let currentUrl = await page.getCurrentUrl();
                 console.log(currentUrl);
                 expect(currentUrl.includes("login")).toBe(true);
@@ -87,6 +87,52 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000; // in microseconds.
                 console.log(currentUrl);
                 expect(currentUrl.includes("register")).toBe(true);
             })
+
+            it("should allow a user to login and logout",async function(){
+                // Registering a new user
+                let registerLink = await page.findByLinkText("Register")
+                await registerLink.click();
+                
+                // register page
+                currentUrl = await page.getCurrentUrl();
+                expect(currentUrl.includes("register")).toBe(true);
+
+                // generate random string for username and password
+                username = await page.findByName("username");
+                password = await page.findByName("password");
+                let signupButton = await page.findByXpath("//input[@type = 'submit']");
+
+                let r = Math.random().toString(36).substring(7);
+                await username.sendKeys(r)
+                await password.sendKeys(r)
+                await signupButton.click();
+
+                // logout
+                let logout = await page.findByLinkText("Logout")
+                await logout.click();
+
+                // Logging in
+                let loginLink = await page.findByLinkText("Login")
+                await loginLink.click();
+                
+                // login page
+                currentUrl = await page.getCurrentUrl();
+                expect(currentUrl.includes("login")).toBe(true);
+
+                // generate random string for username and password
+                username = await page.findByName("username");
+                password = await page.findByName("password");
+                loginButton = await page.findByXpath("//input[@type = 'submit']");
+
+                await username.sendKeys(r)
+                await password.sendKeys(r)
+                await loginButton.click();
+
+                // logout
+                logout = await page.findByLinkText("Logout")
+                await logout.click();
+            })
+
 
         })
     } catch (error) {
