@@ -6,7 +6,7 @@ var venuesSchema = new mongoose.Schema({
    price: String,
    description: String,
    location: String,
-   capacity: Number,
+   capacity: String,
    category: String,
    contactno: String,
    cateringAvailable: String,
