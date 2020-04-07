@@ -57,6 +57,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 if(err){
                     console.log(err);
                 } else {
+                    newlyCreated.author.id = req.user._id;
+                    newlyCreated.author.username = req.user.username;
+                    newlyCreated.save();
+                                        
                     //redirect back to decorations page
                     console.log(newlyCreated);
                     res.redirect("/decorations");
