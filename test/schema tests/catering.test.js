@@ -19,9 +19,10 @@ describe('Catering Model Test', () => {
       });
 
     test('CreateAndSaveCateringData', async () => {
-        const cateringData = { name: 'Jessy Caterers', image: null, description: null,
-        location: 'Vancouver', price: '$2000', beverages: "false", 
-        contactno: '123456789'};
+
+        const cateringData = { name: 'Tasty Catering', image: 'https://s3-media0.fl.yelpcdn.com/bphoto/ygnNiki0Arkydr4SJoA8hA/l.jpgs', description: 'Healthful, delicious and sustainably sourced food that nourishes the body and supports a healthy environment',
+        location: '1255 Sheppard Avenue East, North York, M2K1E2', price: '100', beverages: 'Yes', 
+        contactno: '416-410-2928'};
         const validCateringData = new CateringModel(cateringData);
         const savedCateringData = await validCateringData.save();
         // Object Id should be defined when successfully saved to MongoDB.
@@ -37,9 +38,9 @@ describe('Catering Model Test', () => {
         // Test Schema is working!!!
     // You shouldn't be able to add in any field that isn't defined in the schema
     test('FieldNotDefinedInSchema', async () => {
-        const cateringData = { name: 'Tasty Caterers', image: null,
-        description: null, location: 'Brampton', price: '$2000',
-        beverages: "false",  contactno: '123456789', rating: 'very good'};
+        const cateringData = { name: 'Tasty Catering', image: 'https://s3-media0.fl.yelpcdn.com/bphoto/ygnNiki0Arkydr4SJoA8hA/l.jpgs', description: 'Healthful, delicious and sustainably sourced food that nourishes the body and supports a healthy environment',
+        location: '1255 Sheppard Avenue East, North York, M2K1E2', price: '100', beverages: 'Yes', 
+        contactno: '416-410-2928', rating: 'very good'};
         const validCateringData = new CateringModel(cateringData);
         const savedCateringData = await validCateringData.save();
         // Object Id should be defined when successfully saved to MongoDB.
@@ -55,8 +56,10 @@ describe('Catering Model Test', () => {
 
     // Test Validation is working!!!
     test('MandatoryFieldNotProvided', async () => {
-        const cateringWithoutRequiredField = new CateringModel({ image: null, description: null,             location: 'Halifix',
-            price: '$2000', beverages: "false", contactno: '123456789' });
+        const cateringData = { image: 'https://s3-media0.fl.yelpcdn.com/bphoto/ygnNiki0Arkydr4SJoA8hA/l.jpgs', description: 'Healthful, delicious and sustainably sourced food that nourishes the body and supports a healthy environment',
+        location: '1255 Sheppard Avenue East, North York, M2K1E2', price: '100', beverages: 'Yes', 
+        contactno: '416-410-2928'};
+        const cateringWithoutRequiredField = new CateringModel(cateringData);
         let err;
         try {
             const savedCateringDataWithoutRequiredField = await cateringWithoutRequiredField.save();
