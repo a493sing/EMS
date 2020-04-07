@@ -100,7 +100,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
             req.flash("error", err.message);
             res.redirect("back");
         } else {
-            console.log("HERE at edit");
+            // console.log("HERE at edit");
             req.flash("success","Successfully Updated!");
             res.redirect("/catering/" + catering._id);
         }
