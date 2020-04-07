@@ -19,9 +19,9 @@ describe('Decorations Model Test', () => {
       });
 
     test('CreateAndSaveDecorationData', async () => {
-        const decorationData = { name: 'PPP Decorators', image: null,
-        description: null, location: 'Toronto', price: '$5000', 
-        contactno: '1222234445'};
+        const decorationData = { name: 'Queen Wedding Decor', image: 'https://www.queenweddingdecor.com/wp-content/uploads/2019/11/backdrop_2019_09_01.jpg',
+        description: 'We are one of the Toronto wedding flowers & wedding decor specialists. Our design styles range from traditional to modern day trendy. We work closely with you and assist you with choosing the right type of wedding flowers, chair covers, centerpieces and backdrops for your wedding', location: '85 Midwest Rd, Scarborough, ON M1P 3A6', price: '1000', 
+        contactno: '647-631-2227'};
         const validDecorationData = new DecorationModel(decorationData);
         const savedDecorationData = await validDecorationData.save();
         // Object Id should be defined when successfully saved to MongoDB.
@@ -33,12 +33,12 @@ describe('Decorations Model Test', () => {
         expect(savedDecorationData.contactno).toBe(decorationData.contactno);
     });
 
-        // Test Schema is working!!!
+    // Test Schema is working!!!
     // You shouldn't be able to add in any field that isn't defined in the schema
     test('FieldNotDefinedInSchema', async () => {
-        const decorationData = {  name: 'QQQ Decorators', image: null,
-        description: null, location: 'Missisauga',
-        price: '$5000', contactno: '1222234445', 
+        const decorationData = { name: 'Queen Wedding Decor', image: 'https://www.queenweddingdecor.com/wp-content/uploads/2019/11/backdrop_2019_09_01.jpg',
+        description: 'We are one of the Toronto wedding flowers & wedding decor specialists. Our design styles range from traditional to modern day trendy. We work closely with you and assist you with choosing the right type of wedding flowers, chair covers, centerpieces and backdrops for your wedding', location: '85 Midwest Rd, Scarborough, ON M1P 3A6', price: '1000', 
+        contactno: '647-631-2227',
         rating: 'very good'};
         const validDecorationData = new DecorationModel(decorationData);
         const savedDecorationData = await validDecorationData.save();
@@ -54,9 +54,9 @@ describe('Decorations Model Test', () => {
 
     // Test Validation is working!!!
     test('MandatoryFieldNotProvided', async () => {
-        const userWithoutRequiredField = new DecorationModel({ image: null,
-            description: null, location: 'Waterloo',
-            price: '$5000', contactno: '1222234445'});
+        const userWithoutRequiredField = new DecorationModel({ image: 'https://www.queenweddingdecor.com/wp-content/uploads/2019/11/backdrop_2019_09_01.jpg',
+        description: 'We are one of the Toronto wedding flowers & wedding decor specialists. Our design styles range from traditional to modern day trendy. We work closely with you and assist you with choosing the right type of wedding flowers, chair covers, centerpieces and backdrops for your wedding', location: '85 Midwest Rd, Scarborough, ON M1P 3A6', price: '1000', 
+        contactno: '647-631-2227'});
         let err;
         try {
             const savedDecorationDataWithoutRequiredField = await userWithoutRequiredField.save();

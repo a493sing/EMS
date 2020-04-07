@@ -19,10 +19,11 @@ describe('Venues Model Test', () => {
       });
 
     test('CreateAndSaveVenue', async () => {
-        const venueData =  { name: 'ABC Party Hall', image: null,
-                description: null, location: 'Waterloo', price: '5000 CAD',
-                capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true"
+        const venueData =  { name: 'Brighton Convention and Event Centre', image: 'https://eventective-media.azureedge.net/2235051_lg.jpg',
+                description: 'Brighton Convention and Event Centre is a beautiful North East Toronto destination for weddings, banquets and business events. With 16,627 square feet on 3.25 acres of landscaped grounds, the elegantly decorated we offer a world of possibilities for your personal and business special event needs. Our experienced, professional staff will ensure you receive truly personalized service, giving your guests the attention that they deserve. From your first visit to our hall until the end of your wedding celebration, you will love all we have to offer. We offer beautifully appointed bridal suites, large lobby, wheelchair access to halls and washrooms and a gorgeous outdoor patio that can be used for small ceremonies, weather permitting. There are indoor areas for photo you’ll always treasure.', 
+                location: '2155 McNicoll Ave, Scarborough, ON M1V 5P1', price: '5000',
+                capacity: 1000, category: 'Weddings, banquets and business events.',
+                contactno: '416-299-0077', cateringAvailable: 'Yes', decorationAvailable: 'Yes'
             };
         const validVenue = new VenueModel(venueData);
         const savedVenue = await validVenue.save();
@@ -43,12 +44,12 @@ describe('Venues Model Test', () => {
     // Test Schema is working!!!
     // You shouldn't be able to add in any field that isn't defined in the schema
     test('FieldNotDefinedInSchema', async () => {
-        const venueData =  { name: 'Grand Party Hall', image: null,
-                description: null, location: 'Markham', price: '5000 CAD',
-                capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true",
-                rating: 'very good'
-            };
+        const venueData =  { name: 'Brighton Convention and Event Centre', image: 'https://eventective-media.azureedge.net/2235051_lg.jpg',
+        description: 'Brighton Convention and Event Centre is a beautiful North East Toronto destination for weddings, banquets and business events. With 16,627 square feet on 3.25 acres of landscaped grounds, the elegantly decorated we offer a world of possibilities for your personal and business special event needs. Our experienced, professional staff will ensure you receive truly personalized service, giving your guests the attention that they deserve. From your first visit to our hall until the end of your wedding celebration, you will love all we have to offer. We offer beautifully appointed bridal suites, large lobby, wheelchair access to halls and washrooms and a gorgeous outdoor patio that can be used for small ceremonies, weather permitting. There are indoor areas for photo you’ll always treasure.', 
+        location: '2155 McNicoll Ave, Scarborough, ON M1V 5P1', price: '5000',
+        capacity: 1000, category: 'Weddings, banquets and business events.',
+        contactno: '416-299-0077', cateringAvailable: 'Yes', decorationAvailable: 'Yes', rating: 'very good'};
+
         const validVenue = new VenueModel(venueData);
         const savedVenue = await validVenue.save();
         // Object Id should be defined when successfully saved to MongoDB.
@@ -67,11 +68,11 @@ describe('Venues Model Test', () => {
 
     // Test Validation is working!!!
     test('MandatoryFieldNotProvided', async () => {
-        const venueDataWithoutReqField = new VenueModel({ image: null,
-                description: null, location: 'Markham', price: '5000 CAD',
-                capacity: 500, category: 'Suited for all types of events',
-                contactno: '2268889090', cateringAvailable: "true", decorationAvailable: "true"
-          });
+        const venueDataWithoutReqField = new VenueModel({image: 'https://eventective-media.azureedge.net/2235051_lg.jpg',
+        description: 'Brighton Convention and Event Centre is a beautiful North East Toronto destination for weddings, banquets and business events. With 16,627 square feet on 3.25 acres of landscaped grounds, the elegantly decorated we offer a world of possibilities for your personal and business special event needs. Our experienced, professional staff will ensure you receive truly personalized service, giving your guests the attention that they deserve. From your first visit to our hall until the end of your wedding celebration, you will love all we have to offer. We offer beautifully appointed bridal suites, large lobby, wheelchair access to halls and washrooms and a gorgeous outdoor patio that can be used for small ceremonies, weather permitting. There are indoor areas for photo you’ll always treasure.', 
+        location: '2155 McNicoll Ave, Scarborough, ON M1V 5P1', price: '5000',
+        capacity: '1000', category: 'Weddings, banquets and business events.',
+        contactno: '416-299-0077', cateringAvailable: 'Yes', decorationAvailable: 'Yes'});
         let err;
         try {
             const savedVenueWithoutReqField = await venueDataWithoutReqField.save();
