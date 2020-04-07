@@ -12,7 +12,6 @@ var express     = require("express"),
     Catering = require("./models/catering"),
     Decorations  = require("./models/decorations"),
     session = require("express-session"),
-    //seedDB      = require("./seeds"),
     //seedEmsData = require("./seedEmsData"),
     seedEmsDataCsv = require("./seedEmsDataCsv"),    
     methodOverride = require("method-override");
@@ -58,7 +57,6 @@ app.use("/catering", cateringRoutes);
 app.use("/decorations", decorationRoutes);
 
 // seed the database
-//seedDB(); 
 //seedEmsData();
 if (process.env.seeddb == 'true')
     seedEmsDataCsv();
