@@ -12,7 +12,6 @@ var express     = require("express"),
     Catering = require("./models/catering"),
     Decorations  = require("./models/decorations"),
     session = require("express-session"),
-    //seedDB      = require("./seeds"),
     //seedEmsData = require("./seedEmsData"),
     seedEmsDataCsv = require("./seedEmsDataCsv"),    
     methodOverride = require("method-override");
@@ -24,7 +23,7 @@ var indexRoutes      = require("./routes/index"),
     cateringRoutes      = require("./routes/catering"),
     decorationRoutes      = require("./routes/decorations")
     
-mongoose.connect("mongodb://localhost/EMS_v1");
+mongoose.connect("mongodb://localhost/EMS_v1", { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -57,10 +56,10 @@ app.use("/venues", venueRoutes);
 app.use("/catering", cateringRoutes);
 app.use("/decorations", decorationRoutes);
 
-// seed the database only for first time
-//seedDB(); 
+// seed the database
 //seedEmsData();
-seedEmsDataCsv();
+if (process.env.seeddb == 'true')
+    seedEmsDataCsv();
 
 //app.listen(process.env.PORT, process.env.IP, function(){
 app.listen(3000, process.env.IP, function(){

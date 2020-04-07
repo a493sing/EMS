@@ -61,6 +61,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 if(err){
                     console.log(err);
                 } else {
+                    newlyCreated.author.id = req.user._id;
+                    newlyCreated.author.username = req.user.username;
+                    newlyCreated.save();
+
                     //redirect back to venues page
                     console.log(newlyCreated);
                     res.redirect("/venues");
@@ -76,7 +80,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
  });
 
 //EDIT
-router.get("/:id/edit", middleware.checkVenuesOwnership, function(req, res){
+router.get("/:id/edit", middleware.isLoggedIn, function(req, res){
     //find the venue with provided ID
     Venues.findById(req.params.id, function(err, foundVen){
         if(err){
@@ -89,7 +93,7 @@ router.get("/:id/edit", middleware.checkVenuesOwnership, function(req, res){
 });
 
 //UPDATE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.isLoggedIn, function(req, res){
     var newData = {name: req.body.name, 
         image: req.body.image, description: req.body.description, 
         contactno: req.body.contactno, price: req.body.price,
@@ -102,7 +106,7 @@ router.put("/:id", function(req, res){
             req.flash("error", err.message);
             res.redirect("back");
         } else {
-            console.log("HERE at edit");
+            //console.log("HERE at edit");
             req.flash("success","Successfully Updated!");
             res.redirect("/venues/" + venues._id);
         }
@@ -110,7 +114,7 @@ router.put("/:id", function(req, res){
 });
 
 //DELETE
-router.delete("/:id", function(req, res) {
+router.delete("/:id", middleware.isLoggedIn, function(req, res) {
     Venues.findByIdAndRemove(req.params.id, function(err, venues) {
       Comment.remove({
         _id: {
@@ -173,7 +177,7 @@ router.post("/:id/comments", middleware.isLoggedIn, function(req, res){
 });
 
 // EDIT Route
-router.get("/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
+router.get("/:id/comments/:comment_id/edit", middleware.isLoggedIn, function(req, res){
     //console.log("MK : router.get(/:id/comments/:comment_id/edit)");
     Comment.findById(req.params.comment_id, function(err, foundComment) {
         if(err){
@@ -186,7 +190,7 @@ router.get("/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, f
 });
 
 //UPDATE Route
-router.put("/:id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res){
+router.put("/:id/comments/:comment_id", middleware.isLoggedIn, function(req, res){
     // console.log("MK : router.put(/:id/comments/:comment_id)");
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if(err){
@@ -199,7 +203,7 @@ router.put("/:id/comments/:comment_id", middleware.checkCommentOwnership, functi
 });
 
 //COMMENT Destroy Route
-router.delete("/:id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res){
+router.delete("/:id/comments/:comment_id", middleware.isLoggedIn, function(req, res){
     //console.log("MK : router.delete(/:id/comments/:comment_id)");
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){

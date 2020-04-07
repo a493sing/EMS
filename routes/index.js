@@ -27,14 +27,17 @@ router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
-            req.flash("error", err.message);
-            return res.render("register");
+           console.log(err.message);
+	failureFlash: true
+           req.flash("error", err.message);
+	res.redirect("/register");
         }
+	else {
         passport.authenticate("local")(req, res, function(){
            req.flash("success", "Successfully Signed Up! Start your planning now " + req.body.username);
            res.redirect("/"); 
         });
+	}
     });
 });
 
@@ -48,8 +51,9 @@ router.get("/login", function(req, res){
 //handling login logic
 router.post("/login", passport.authenticate("local", 
     {
-        successRedirect: "/venues",
-        failureRedirect: "/login"
+        successRedirect: "/",
+        failureRedirect: "/login",
+	failureFlash: true
     }), function(req, res){
 });
 
@@ -60,13 +64,5 @@ router.get("/logout", function(req, res){
    req.flash("success", "Successfully LOGGED OUT!");
    res.redirect("/");
 });
-
-// function isLoggedIn(req, res, next){
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     req.flash("error", "You must be signed in to do that!");
-//     res.redirect("/login");
-// }
 
 module.exports = router;
